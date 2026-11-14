@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<a href="#main" style="position:absolute;left:16px;top:-80px;z-index:100;background:#00376D;color:#FFFFFF;padding:12px 18px;font-family:'Jost',sans-serif;font-size:16px;text-decoration:none;border-radius:4px" style-focus="top:12px">Skip to main content</a>
+<header style="position:sticky;top:0;z-index:60;background:#FFFFFF;border-bottom:1px solid {{ borderColor }};transition:border-color 200ms ease">
+  <div style="max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,48px);height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+    <a href="index.html" aria-label="PT Research Lab, home" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:#0B0C0E;min-height:44px">
+      <img src="assets/pt-monogram-260.webp" alt="" width="34" height="42" style="height:42px;width:auto;display:block">
+      <span style="font-family:'Jost',sans-serif;font-size:21px;font-weight:300;letter-spacing:0.02em">Research Lab</span>
+    </a>
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+      <nav aria-label="Main" style="display:flex;align-items:center;gap:32px">
+        <ul style="display:flex;gap:26px;list-style:none;margin:0;padding:0;align-items:center">
+          <sc-for list="{{ items }}" as="item" hint-placeholder-count="5">
+            <li style="display:flex">
+              <a href="{{ item.href }}" aria-current="{{ item.current }}" onMouseEnter="{{ item.enter }}" onMouseLeave="{{ item.leave }}" onFocus="{{ item.enter }}" onBlur="{{ item.leave }}" style="position:relative;display:inline-flex;align-items:center;min-height:44px;font-family:'Jost',sans-serif;font-size:16px;font-weight:{{ item.weight }};color:{{ item.color }};text-decoration:none">{{ item.label }}<svg aria-hidden="true" style="position:absolute;left:0;bottom:6px;width:100%;height:8px;overflow:visible;clip-path:{{ item.clip }};transition:clip-path 340ms cubic-bezier(.3,.7,.2,1)"><line x1="0" y1="7" x2="100%" y2="1.5" stroke="#00376D" stroke-width="1.5"></line><circle cx="100%" cy="1.5" r="2.5" fill="#00376D"></circle></svg></a>
+            </li>
+          </sc-for>
+        </ul>
+        <a href="work-with-us.html" aria-current="{{ contactCurrent }}" style="display:inline-flex;align-items:center;min-height:44px;padding:0 20px;border-radius:999px;background:#00376D;color:#FFFFFF;font-family:'Jost',sans-serif;font-size:16px;text-decoration:none;transition:background 160ms ease" style-hover="background:#00264D">Work with us</a>
+      </nav>
+    </sc-if>
+    <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+      <button type="button" onClick="{{ toggle }}" aria-expanded="{{ openStr }}" aria-controls="mobile-nav" style="display:flex;align-items:center;gap:10px;min-height:44px;min-width:44px;padding:0 14px;border:1px solid #A9BBD2;border-radius:999px;background:#FFFFFF;color:#0B0C0E;font-family:'Jost',sans-serif;font-size:16px;cursor:pointer">
+        <span style="display:flex;flex-direction:column;gap:4px" aria-hidden="true"><span style="display:block;width:18px;height:1.5px;background:#0B0C0E"></span><span style="display:block;width:18px;height:1.5px;background:#00376D"></span><span style="display:block;width:12px;height:1.5px;background:#0B0C0E"></span></span>
+        {{ menuLabel }}
+      </button>
+    </sc-if>
+  </div>
+  <sc-if value="{{ mobileOpen }}" hint-placeholder-val="{{ false }}">
+    <nav id="mobile-nav" aria-label="Main" style="border-top:1px solid #E3E9F1;background:#FFFFFF;padding:8px clamp(20px,4vw,48px) 20px">
+      <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column">
+        <sc-for list="{{ items }}" as="item" hint-placeholder-count="5">
+          <li style="border-bottom:1px solid #E3E9F1"><a href="{{ item.href }}" aria-current="{{ item.current }}" onClick="{{ close }}" style="display:flex;align-items:center;min-height:52px;font-family:'Jost',sans-serif;font-size:19px;color:{{ item.color }};text-decoration:none">{{ item.label }}</a></li>
+        </sc-for>
+        <li style="padding-top:16px"><a href="work-with-us.html" onClick="{{ close }}" style="display:inline-flex;align-items:center;min-height:48px;padding:0 22px;border-radius:999px;background:#00376D;color:#FFFFFF;font-family:'Jost',sans-serif;font-size:17px;text-decoration:none">Work with us</a></li>
+      </ul>
+    </nav>
+  </sc-if>
+</header>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;96px&quot;},&quot;active&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;research&quot;,&quot;publications&quot;,&quot;team&quot;,&quot;impact&quot;,&quot;contact&quot;],&quot;default&quot;:&quot;home&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { open: false, narrow: false, hover: -1, scrolled: false };
+  componentDidMount() {
+    this.onR = () => this.setState({ narrow: window.innerWidth < 1000 });
+    this.onS = () => this.setState({ scrolled: window.scrollY > 8 });
+    this.onR(); this.onS();
+    window.addEventListener('resize', this.onR);
+    window.addEventListener('scroll', this.onS, { passive: true });
+    // Escape closes the phone menu.
+    this.onK = e => { if (e.key === 'Escape' && this.state.open) this.setState({ open: false }); };
+    window.addEventListener('keydown', this.onK);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onR);
+    window.removeEventListener('scroll', this.onS);
+    window.removeEventListener('keydown', this.onK);
+  }
+  renderVals() {
+    const active = this.props.active ?? 'home';
+    // Every menu item opens its own page, so no two items lead to the same place.
+    const defs = [
+      { key: 'home', label: 'About', href: 'index.html' },
+      { key: 'research', label: 'Research', href: 'research.html' },
+      { key: 'publications', label: 'Publications', href: 'publications.html' },
+      { key: 'team', label: 'People', href: 'people.html' },
+      { key: 'impact', label: 'Impact', href: 'impact.html' }
+    ];
+    const items = defs.map((d, i) => {
+      const isActive = d.key === active;
+      const on = isActive || this.state.hover === i;
+      return {
+        ...d,
+        current: isActive ? 'page' : undefined,
+        color: isActive ? '#00376D' : '#0B0C0E',
+        weight: isActive ? 500 : 400,
+        clip: on ? 'inset(-4px -4px -4px 0)' : 'inset(-4px 100% -4px 0)',
+        enter: () => this.setState({ hover: i }),
+        leave: () => this.setState({ hover: -1 })
+      };
+    });
+    return {
+      items,
+      contactCurrent: active === 'contact' ? 'page' : undefined,
+      wide: !this.state.narrow,
+      narrow: this.state.narrow,
+      mobileOpen: this.state.narrow && this.state.open,
+      openStr: this.state.open ? 'true' : 'false',
+      menuLabel: this.state.open ? 'Close' : 'Menu',
+      toggle: () => this.setState(s => ({ open: !s.open })),
+      close: () => this.setState({ open: false }),
+      borderColor: this.state.scrolled ? '#E3E9F1' : '#FFFFFF'
+    };
+  }
+}
+</script>
+</body>
+</html>

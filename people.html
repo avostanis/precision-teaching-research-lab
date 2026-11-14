@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>People · PT Research Lab</title>
+<meta name="description" content="The PT Research Lab team: Dr Thanos Vostanis, doctoral researchers, collaborators and alumni.">
+<meta property="og:title" content="People · PT Research Lab">
+<meta property="og:description" content="The PT Research Lab team: Dr Thanos Vostanis, doctoral researchers, collaborators and alumni.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="stylesheet" href="fonts/fonts.css">
+<script>window.__resources = {"https://unpkg.com/react@18.3.1/umd/react.production.min.js":"vendor/react.production.min.js","https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js":"vendor/react-dom.production.min.js"};</script>
+<script src="./support.js"></script>
+</head>
+<body>
+<noscript><p style="max-width:40em;margin:48px auto;padding:0 20px;font-family:system-ui,sans-serif;font-size:18px;line-height:1.6">This website needs JavaScript to show its pages. Please turn JavaScript on in your browser, or email <a href="mailto:a.vostanis@kent.ac.uk">a.vostanis@kent.ac.uk</a>.</p></noscript>
+<x-dc>
+<helmet>
+<script src="./image-slot.js"></script>
+<style>
+body{margin:0;background:#FFFFFF;color:#0B0C0E;font-family:'Atkinson Hyperlegible Next','Atkinson Hyperlegible',system-ui,sans-serif;font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:#00376D;text-underline-offset:3px}
+a:hover{color:#00264D}
+:focus-visible{outline:3px solid #00376D;outline-offset:3px;border-radius:2px}
+::selection{background:#E3E9F1}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{transition-duration:0.01ms!important;animation-duration:0.01ms!important}}
+</style>
+</helmet>
+<dc-import name="SiteHeader" active="team" hint-size="100%,76px"></dc-import>
+<main id="main" style="max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,48px)">
+  <header style="position:relative;isolation:isolate;padding:clamp(48px,7vw,96px) 0 clamp(32px,4vw,48px);display:flex;flex-direction:column;gap:20px">
+    <svg aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute;z-index:-1;top:0;left:calc(-1 * clamp(20px,4vw,48px));width:calc(100% + 2 * clamp(20px,4vw,48px));height:100%;-webkit-mask-image:linear-gradient(to right,transparent 30%,#000 80%);mask-image:linear-gradient(to right,transparent 30%,#000 80%)"><path d="M0 84.95H100M0 76.14H100M0 69.9H100M0 65.05H100M0 61.09H100M0 57.75H100M0 54.85H100M0 52.29H100M0 34.95H100M0 26.14H100M0 19.9H100M0 15.05H100M0 11.09H100M0 7.75H100M0 4.85H100M0 2.29H100" stroke="#F1F4F8" stroke-width="1" fill="none" vector-effect="non-scaling-stroke"></path><path d="M0 99.8H100M0 50H100M0 0.2H100M5 0V100M10 0V100M15 0V100M20 0V100M25 0V100M30 0V100M35 0V100M40 0V100M45 0V100M50 0V100M55 0V100M60 0V100M65 0V100M70 0V100M75 0V100M80 0V100M85 0V100M90 0V100M95 0V100" stroke="#E9EEF4" stroke-width="1" fill="none" vector-effect="non-scaling-stroke"></path><path d="M60 92L96 18M60 92L96 40M60 92L96 62M60 92L96 82" stroke="#C9D6E6" stroke-width="1.5" fill="none" vector-effect="non-scaling-stroke"></path><path d="M96 18h0.01M96 40h0.01M96 62h0.01M96 82h0.01" stroke="#A9BBD2" stroke-width="7" stroke-linecap="round" fill="none" vector-effect="non-scaling-stroke"></path></svg>
+    <p style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:#00376D">People</p>
+    <h1 style="margin:0;font-family:'Jost',sans-serif;font-weight:300;font-size:clamp(40px,5.4vw,72px);line-height:1.04;letter-spacing:-0.015em">The team</h1>
+    <p style="margin:0;max-width:40em;font-size:clamp(18px,1.5vw,20px);text-wrap:pretty">The researchers, doctoral students and collaborators behind the lab’s work. Each person has a celeration line: select a line or a name to see their profile.</p>
+    <span style="align-self:flex-start;display:inline-flex;padding:3px 9px;border:1px dashed #5B7AA3;border-radius:3px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:#00376D;background:#F3F6FA">Team names and photos are placeholders · photos need each person’s consent</span>
+  </header>
+
+  <section aria-labelledby="lead-title" style="padding-top:clamp(40px,5vw,72px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(32px,5vw,72px);align-items:start">
+    <div style="position:relative;aspect-ratio:4/5;max-width:520px;width:100%;background:#F3F6FA">{{ leadPhotoEl }}</div>
+    <div style="display:flex;flex-direction:column;gap:20px;max-width:36em">
+      <p style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:#00376D">Founder and lab lead</p>
+      <h2 id="lead-title" style="margin:0;font-family:'Jost',sans-serif;font-weight:300;font-size:clamp(34px,4vw,52px);line-height:1.08">Dr Thanos Vostanis</h2>
+      <p style="margin:0;text-wrap:pretty">Dr Thanos Vostanis is a Senior Lecturer at the Tizard Centre, University of Kent, specialising in intellectual and developmental disabilities. He is the founder of the PT Research Lab.</p>
+      <p style="margin:0;text-wrap:pretty">His work focuses on bringing precision teaching to professionals in many different contexts, and on evaluating its impact in both traditional and new areas of application, within and beyond education.</p>
+      <p style="margin:0;color:#3F4A5A;text-wrap:pretty">He has experience in both mainstream and special education. He is a qualified teacher (QTS), a certified behaviour analyst in the United Kingdom, UKBA(cert), a Board Certified Behaviour Analyst–Doctoral (BCBA-D) and a certified International Behavior Analyst (IBA). He has also undertaken advanced training in the CABAS® model and the Morningside Model of Generative Instruction.</p>
+    </div>
+  </section>
+
+  <sc-if value="{{ hasDoc }}" hint-placeholder-val="{{ true }}">
+  <section aria-labelledby="phd-title" style="padding-top:clamp(80px,10vw,140px)">
+    <h2 id="phd-title" style="margin:0 0 16px;font-family:'Jost',sans-serif;font-weight:300;font-size:clamp(30px,3.4vw,44px);line-height:1.1">Doctoral researchers: celerating</h2>
+    <p style="margin:0 0 clamp(28px,3vw,44px);max-width:44em;text-wrap:pretty">Not every doctoral project is about precision teaching. What they share is a focus on improving outcomes in the skills that help people live a good life. Projects cover evidence-based approaches to teaching, support for adults, staff performance and more, and we bring precision teaching into the work wherever it fits. In precision teaching terms they are celerating: their learning pictures are still climbing towards the aim.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:clamp(32px,5vw,72px);align-items:start">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;align-items:stretch;border:1px solid #E3E9F1;border-radius:6px;overflow:hidden;background:#FFFFFF">
+          <svg aria-hidden="true" viewBox="{{ doc.vb }}" preserveAspectRatio="none" style="flex:1 1 0;min-width:90px;width:100%;height:{{ doc.h }}">
+            <path d="{{ doc.grid }}" stroke="#EEF2F7" stroke-width="1" fill="none" vector-effect="non-scaling-stroke"></path>
+            <sc-for list="{{ doc.lines }}" as="l" hint-placeholder-count="0">
+              <line x1="{{ l.x1 }}" y1="{{ l.y1 }}" x2="{{ l.x2 }}" y2="{{ l.y2 }}" stroke="{{ l.c }}" stroke-width="{{ l.w }}" stroke-dasharray="{{ l.dash }}" stroke-linecap="round" vector-effect="non-scaling-stroke"></line>
+              <path d="{{ l.dots }}" stroke="{{ l.c }}" stroke-width="6" stroke-linecap="round" fill="none" vector-effect="non-scaling-stroke"></path>
+              <path d="{{ l.end }}" stroke="{{ l.c }}" stroke-width="{{ l.endW }}" stroke-linecap="round" fill="none" vector-effect="non-scaling-stroke"></path>
+              <line x1="{{ l.x1 }}" y1="{{ l.y1 }}" x2="{{ l.x2 }}" y2="{{ l.y2 }}" stroke="transparent" stroke-width="20" vector-effect="non-scaling-stroke" onClick="{{ l.pick }}" onMouseEnter="{{ l.enter }}" onMouseLeave="{{ l.leave }}" style="cursor:pointer;pointer-events:stroke"></line>
+            </sc-for>
+          </svg>
+          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;flex:0 0 auto;width:min(58%,250px);border-left:1px solid #E3E9F1">
+            <sc-for list="{{ doc.people }}" as="p" hint-placeholder-count="10">
+              <li style="height:44px"><button type="button" aria-pressed="{{ p.pressed }}" onClick="{{ p.pick }}" onMouseEnter="{{ p.enter }}" onMouseLeave="{{ p.leave }}" onFocus="{{ p.enter }}" onBlur="{{ p.leave }}" style="display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;height:44px;padding:0 14px;border:0;background:{{ p.bg }};color:{{ p.fg }};font-family:'Jost',sans-serif;font-size:16px;text-align:left;cursor:pointer;white-space:nowrap;overflow:hidden"><span style="overflow:hidden;text-overflow:ellipsis">{{ p.name }}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.04em;text-transform:uppercase;color:{{ p.tagFg }}">{{ p.tag }}</span></button></li>
+            </sc-for>
+          </ul>
+        </div>
+        <p style="margin:0;font-size:14px;color:#3F4A5A">{{ docLegend }}</p>
+      </div>
+      <article ref="{{ docRef }}" aria-live="polite" style="position:sticky;top:100px;scroll-margin-top:96px;display:flex;flex-direction:column;gap:14px;max-width:30em">
+        <div style="position:relative;aspect-ratio:4/5;max-width:380px;width:100%;background:#F3F6FA">{{ doc.photoEl }}</div>
+        <span style="margin-top:6px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:#00376D">{{ doc.sel.role }}</span>
+        <h3 style="margin:0;font-family:'Jost',sans-serif;font-weight:300;font-size:clamp(28px,3vw,38px);line-height:1.1">{{ doc.sel.name }}</h3>
+        <p style="margin:0;color:#3F4A5A;text-wrap:pretty">{{ doc.sel.bio }}</p>
+        <p style="margin:0;display:flex;flex-wrap:wrap;gap:6px 18px;font-size:16px"><a href="#">ORCID</a><a href="#">LinkedIn</a><a href="#">Email</a></p>
+      </article>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ hasCol }}" hint-placeholder-val="{{ true }}">
+  <section aria-labelledby="collab-title" style="padding-top:clamp(80px,10vw,140px)">
+    <h2 id="collab-title" style="margin:0 0 16px;font-family:'Jost',sans-serif;font-weight:300;font-size:clamp(30px,3.4vw,44px);line-height:1.1">Collaborators: celeration multipliers</h2>
+    <p style="margin:0 0 clamp(28px,3vw,44px);max-width:44em;text-wrap:pretty">Our collaborators are experienced academics, researchers and practitioners. We are grateful for the expertise and support they bring to our work. In precision teaching terms, a celeration multiplier tells us how much faster learning has become, and that is what they do for ours: we learn faster with them.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:clamp(32px,5vw,72px);align-items:start">
+      <div style="display:flex;align-items:stretch;border:1px solid #E3E9F1;border-radius:6px;overflow:hidden;background:#FFFFFF">
+        <svg aria-hidden="true" viewBox="{{ col.vb }}" preserveAspectRatio="none" style="flex:1 1 0;min-width:90px;width:100%;height:{{ col.h }}">
+          <path d="{{ col.grid }}" stroke="#EEF2F7" stroke-width="1" fill="none" vector-effect="non-scaling-stroke"></path>
+          <sc-for list="{{ col.lines }}" as="l" hint-placeholder-count="0">
+            <line x1="{{ l.x1 }}" y1="{{ l.y1 }}" x2="{{ l.x2 }}" y2="{{ l.y2 }}" stroke="{{ l.c }}" stroke-width="{{ l.w }}" stroke-dasharray="{{ l.dash }}" stroke-linecap="round" vector-effect="non-scaling-stroke"></line>
+            <path d="{{ l.dots }}" stroke="{{ l.c }}" stroke-width="6" stroke-linecap="round" fill="none" vector-effect="non-scaling-stroke"></path>
+            <path d="{{ l.end }}" stroke="{{ l.c }}" stroke-width="{{ l.endW }}" stroke-linecap="round" fill="none" vector-effect="non-scaling-stroke"></path>
+            <line x1="{{ l.x1 }}" y1="{{ l.y1 }}" x2="{{ l.x2 }}" y2="{{ l.y2 }}" stroke="transparent" stroke-width="20" vector-effect="non-scaling-stroke" onClick="{{ l.pick }}" onMouseEnter="{{ l.enter }}" onMouseLeave="{{ l.leave }}" style="cursor:pointer;pointer-events:stroke"></line>
+          </sc-for>
+        </svg>
+        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;flex:0 0 auto;width:min(58%,250px);border-left:1px solid #E3E9F1">
+          <sc-for list="{{ col.people }}" as="p" hint-placeholder-count="4">
+            <li style="height:44px"><button type="button" aria-pressed="{{ p.pressed }}" onClick="{{ p.pick }}" onMouseEnter="{{ p.enter }}" onMouseLeave="{{ p.leave }}" onFocus="{{ p.enter }}" onBlur="{{ p.leave }}" style="display:flex;align-items:center;width:100%;height:44px;padding:0 14px;border:0;background:{{ p.bg }};color:{{ p.fg }};font-family:'Jost',sans-serif;font-size:16px;text-align:left;cursor:pointer;white-space:nowrap;overflow:hidden"><span style="overflow:hidden;text-overflow:ellipsis">{{ p.name }}</span></button></li>
+          </sc-for>
+        </ul>
+      </div>
+      <article ref="{{ colRef }}" aria-live="polite" style="position:sticky;top:100px;scroll-margin-top:96px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:20px 28px;align-items:start">
+        <div style="position:relative;aspect-ratio:1/1;max-width:260px;width:100%;background:#F3F6FA">{{ col.photoEl }}</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#00376D">{{ col.sel.role }}</span>
+          <h3 style="margin:0;font-family:'Jost',sans-serif;font-weight:300;font-size:clamp(26px,2.6vw,32px);line-height:1.1">{{ col.sel.name }}</h3>
+          <p style="margin:0;color:#3F4A5A;text-wrap:pretty">{{ col.sel.bio }}</p>
+          <p style="margin:0;display:flex;flex-wrap:wrap;gap:6px 18px;font-size:16px"><a href="#">ORCID</a><a href="#">Profile page</a></p>
+        </div>
+      </article>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ hasAlu }}" hint-placeholder-val="{{ true }}">
+  <section aria-labelledby="alumni-title" style="padding-top:clamp(80px,10vw,140px)">
+    <h2 id="alumni-title" style="margin:0 0 16px;font-family:'Jost',sans-serif;font-weight:300;font-size:clamp(30px,3.4vw,44px);line-height:1.1">Alumni: aim reached</h2>
+    <p style="margin:0 0 clamp(20px,2vw,32px);max-width:44em;text-wrap:pretty">Our alumni have completed master’s or doctoral research with the lab. In precision teaching terms, their data reached the aim star, the symbol that marks a goal on the chart, so we are happy to call them fluent.</p>
+    <div style="display:flex;align-items:stretch;border:1.5px solid #00376D;border-radius:6px;overflow:hidden;background:#FFFFFF">
+    <svg aria-hidden="true" viewBox="{{ af.vb }}" preserveAspectRatio="none" style="flex:1 1 0;min-width:70px;width:100%;height:{{ af.h }}">
+      <path d="{{ af.grid }}" stroke="#EEF2F7" stroke-width="1" fill="none" vector-effect="non-scaling-stroke"></path>
+      <path d="{{ af.aimLine }}" stroke="#00376D" stroke-width="1.5" stroke-dasharray="2 5" fill="none" vector-effect="non-scaling-stroke"></path>
+      <path d="{{ af.lines }}" stroke="#00376D" stroke-width="2" stroke-linecap="round" fill="none" vector-effect="non-scaling-stroke"></path>
+      <path d="{{ af.dots }}" stroke="#0B0C0E" stroke-width="6" stroke-linecap="round" fill="none" vector-effect="non-scaling-stroke"></path>
+    </svg>
+    <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;flex:0 0 auto;width:min(72%,460px)">
+      <sc-for list="{{ alumni }}" as="m" hint-placeholder-count="6">
+        <li style="display:grid;grid-template-columns:30px 1fr;gap:12px;align-items:center;height:{{ af.rowH }};padding:0 16px 0 0;border-bottom:1px solid #E3E9F1">
+          <svg aria-hidden="true" viewBox="0 0 24 26" width="30" height="32" style="display:block"><path d="M3 23L12 3L21 23M7.3 14H16.7" fill="none" stroke="#00376D" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <div style="display:flex;flex-direction:column;min-width:0;line-height:1.25">
+            <span style="display:flex;align-items:baseline;gap:10px;min-width:0"><span style="font-family:'Jost',sans-serif;font-size:19px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ m.name }}</span><span style="flex:0 0 auto;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:#00376D;border:1px solid #00376D;border-radius:3px;padding:0 6px">{{ m.degree }}</span></span>
+            <span style="font-size:14px;color:#3F4A5A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ m.role }}</span>
+          </div>
+        </li>
+      </sc-for>
+    </ul>
+    </div>
+    <p style="margin:12px 0 0;font-size:14px;color:#3F4A5A">Every data path starts from the same point and climbs to its own aim star.</p>
+  </section>
+  </sc-if>
+</main>
+<dc-import name="SiteFooter" hint-size="100%,420px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const NAVY = '#00376D', INK = '#0B0C0E', ROW = 44;
+
+// ---------------------------------------------------------------------------------------------
+// THE PEOPLE LISTS. To add, change or remove a person, edit the lines below. One line per person.
+// Keep the quotation marks and the comma at the end of each line.
+//   photo: leave as '' to show the empty placeholder, or give the image file, for example
+//          photo: 'assets/people/first-name.webp'  (only with that person's consent)
+//   prospective: true  marks someone as a prospective doctoral researcher.
+//
+// TO HIDE ALL PROSPECTIVE RESEARCHERS: change true to false on the next line. Nothing else needs to change;
+// their lines can stay in the list below, ready for when you want to show them again.
+// ---------------------------------------------------------------------------------------------
+const SHOW_PROSPECTIVE = true;
+// ---------------------------------------------------------------------------------------------
+const DOCTORAL_LIST = [
+  { name: '[Doctoral researcher 1]', role: 'PhD researcher · Year [n]', bio: '[One or two sentences on the thesis topic and the outcomes it aims to improve.]', photo: '' },
+  { name: '[Doctoral researcher 2]', role: 'PhD researcher · Year [n]', bio: '[One or two sentences on the thesis topic and the outcomes it aims to improve.]', photo: '' },
+  { name: '[Doctoral researcher 3]', role: 'PhD researcher · Year [n]', bio: '[One or two sentences on the thesis topic and the outcomes it aims to improve.]', photo: '' },
+  { name: '[Doctoral researcher 4]', role: 'PhD researcher · Year [n]', bio: '[One or two sentences on the thesis topic and the outcomes it aims to improve.]', photo: '' },
+  { name: '[Doctoral researcher 5]', role: 'PhD researcher · Year [n]', bio: '[One or two sentences on the thesis topic and the outcomes it aims to improve.]', photo: '' },
+  { name: '[Doctoral researcher 6]', role: 'PhD researcher · Year [n]', bio: '[One or two sentences on the thesis topic and the outcomes it aims to improve.]', photo: '' },
+  { name: '[Prospective researcher 1]', role: 'Prospective doctoral researcher', bio: '[Proposed topic, once confirmed.]', photo: '', prospective: true },
+  { name: '[Prospective researcher 2]', role: 'Prospective doctoral researcher', bio: '[Proposed topic, once confirmed.]', photo: '', prospective: true },
+  { name: '[Prospective researcher 3]', role: 'Prospective doctoral researcher', bio: '[Proposed topic, once confirmed.]', photo: '', prospective: true },
+  { name: '[Prospective researcher 4]', role: 'Prospective doctoral researcher', bio: '[Proposed topic, once confirmed.]', photo: '', prospective: true },
+];
+const COLLAB_LIST = [
+  { name: '[Collaborator 1]', role: '[Role], [Institution to be confirmed]', bio: '[Shared project or area of collaboration.]', photo: '' },
+  { name: '[Collaborator 2]', role: '[Role], [Institution to be confirmed]', bio: '[Shared project or area of collaboration.]', photo: '' },
+  { name: '[Collaborator 3]', role: '[Role], [Institution to be confirmed]', bio: '[Shared project or area of collaboration.]', photo: '' },
+  { name: '[Collaborator 4]', role: '[Role], [Institution to be confirmed]', bio: '[Shared project or area of collaboration.]', photo: '' },
+];
+// Alumni: degree is 'PhD' or 'MSc'.
+const ALUMNI_LIST = [
+  { name: '[Alumnus 1]', degree: 'PhD', role: '[Year completed] · now [current role]' },
+  { name: '[Alumnus 2]', degree: 'PhD', role: '[Year completed] · now [current role]' },
+  { name: '[Alumnus 3]', degree: 'PhD', role: '[Year completed] · now [current role]' },
+  { name: '[Alumnus 4]', degree: 'MSc', role: '[Year completed] · now [current role]' },
+  { name: '[Alumnus 5]', degree: 'MSc', role: '[Year completed] · now [current role]' },
+  { name: '[Alumnus 6]', degree: 'MSc', role: '[Year completed] · now [current role]' },
+];
+// The lab lead's portrait: '' shows the empty placeholder, or give the image file, for example 'assets/people/thanos.webp'.
+const LEAD_PHOTO = '';
+// (The image placeholder for each person needs its own id; these are made automatically.)
+let nPhd = 0, nPro = 0;
+const DOCTORAL = DOCTORAL_LIST.filter(p => SHOW_PROSPECTIVE || !p.prospective).map(p => ({ photo: '', ...p, slot: p.prospective ? `team-prospective-${++nPro}` : `team-phd-${++nPhd}` }));
+const COLLAB = COLLAB_LIST.map((p, i) => ({ photo: '', ...p, slot: `team-collab-${i + 1}` }));
+
+// Image placeholders are created here, not written in the page template, so that the browser never tries to load an unfinished address.
+const slotEl = (id, src, placeholder) => React.createElement('image-slot', { id, src: src || undefined, shape: 'rect', placeholder, style: { position: 'absolute', inset: 0 } });
+
+// Builds a celeration fan: every line starts from a shared origin (bottom left) and ends level with its name.
+function fan(people, sel, hov, pick, enter, leave) {
+  const N = people.length;
+  if (!N) return { vb: '0 0 100 44', h: '0px', grid: '', lines: [], people: [], sel: {}, photoEl: null };   // an empty list: the section is not shown
+  // The chart is as tall as the list of names, with a minimum of three rows so that one or two names still look like a chart.
+  const H = Math.max(N, 3) * ROW, ox = 3, oy = H - 4, ex = 96;
+  sel = Math.min(sel, N - 1);
+  let grid = '';
+  for (let d = 0; d < 2; d++) for (let k = 1; k <= 9; k++) grid += `M0 ${(H - (d + Math.log10(k)) * H / 2).toFixed(1)}H100`;
+  for (let i = 1; i < 8; i++) grid += `M${i * 12.5} 0V${H}`;
+  const lines = people.map((p, i) => {
+    const ey = i * ROW + ROW / 2, on = i === sel, hot = i === hov;
+    let dots = '';
+    if (!p.prospective) for (let j = 0; j < 6; j++) {
+      const t = 0.2 + j * 0.13;
+      dots += `M${(ox + (ex - ox) * t).toFixed(2)} ${(oy + (ey - oy) * t + 7 * Math.sin(i * 3.1 + j * 2.3)).toFixed(1)}h0.01`;
+    }
+    return {
+      x1: ox, y1: oy, x2: ex, y2: ey,
+      c: on ? NAVY : hot ? INK : '#7F96B5', w: on ? 3 : 1.5,
+      dash: p.prospective ? '7 6' : 'none',
+      dots: dots || 'M0 0', end: `M${ex} ${ey}h0.01`, endW: on ? 14 : 9,
+      pick: () => pick(i), enter: () => enter(i), leave
+    };
+  });
+  return {
+    vb: `0 0 100 ${H}`, h: `${H}px`, grid, lines,
+    people: people.map((p, i) => {
+      const on = i === sel, hot = i === hov;
+      return {
+        name: p.name, tag: p.prospective ? 'Prospective' : '',
+        pressed: on ? 'true' : 'false',
+        bg: on ? NAVY : hot ? '#F3F6FA' : '#FFFFFF', fg: on ? '#FFFFFF' : INK, tagFg: on ? '#DCE4EE' : '#3F4A5A',
+        pick: () => pick(i), enter: () => enter(i), leave
+      };
+    }),
+    sel: people[sel],
+    photoEl: slotEl(people[sel].slot, people[sel].photo, 'Portrait (consent required)')
+  };
+}
+
+class Component extends DCLogic {
+  state = { doc: 0, col: 0, hovDoc: -1, hovCol: -1 };
+  docRef = React.createRef(); colRef = React.createRef();
+  // Choosing a name shows that person's profile. On a narrow screen the profile sits below the list,
+  // so if it is out of view the page moves down to it.
+  select(key, i, ref) {
+    this.setState({ [key]: i }, () => {
+      const el = ref.current; if (!el) return;
+      if (el.getBoundingClientRect().top > window.innerHeight - 120) el.scrollIntoView({ block: 'start', behavior: window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    });
+  }
+  renderVals() {
+    const { doc, col, hovDoc, hovCol } = this.state;
+    // Alumni come from ALUMNI_LIST at the top of this script. Each gets a row, a data path and an aim star.
+    const alumni = ALUMNI_LIST.map(m => ({ ...m }));
+    // Rows are a little shorter once there are more than ten alumni, so a long list stays manageable.
+    const RA = alumni.length > 10 ? 48 : 60, AH = Math.max(alumni.length, 2) * RA, aox = 3, aoy = AH - 5, aex = 98;
+    const af = { vb: `0 0 100 ${AH}`, h: `${AH}px`, rowH: `${RA}px`, grid: '', aimLine: `M${aex} 0V${AH}`, lines: '', dots: '' };
+    for (let d = 0; d < 2; d++) for (let k = 1; k <= 9; k++) af.grid += `M0 ${(AH - (d + Math.log10(k)) * AH / 2).toFixed(1)}H100`;
+    alumni.forEach((m, i) => {
+      const ey = i * RA + RA / 2;
+      af.lines += `M${aox} ${aoy}L${aex} ${ey}`;
+      for (let j = 0; j < 7; j++) {
+        const t = 0.16 + j * 0.14;
+        af.dots += `M${(aox + (aex - aox) * t).toFixed(2)} ${(aoy + (ey - aoy) * t + (j < 6 ? 6 * Math.sin(i * 2.7 + j * 2.1) : 0)).toFixed(1)}h0.01`;
+      }
+    });
+    return {
+      doc: fan(DOCTORAL, doc, hovDoc, i => this.select('doc', i, this.docRef), i => this.setState({ hovDoc: i }), () => this.setState({ hovDoc: -1 })),
+      col: fan(COLLAB, col, hovCol, i => this.select('col', i, this.colRef), i => this.setState({ hovCol: i }), () => this.setState({ hovCol: -1 })),
+      alumni, af,
+      hasDoc: DOCTORAL.length > 0, hasCol: COLLAB.length > 0, hasAlu: alumni.length > 0,
+      docRef: this.docRef, colRef: this.colRef,
+      docLegend: DOCTORAL.some(p => p.prospective) ? 'Solid lines with data are current doctoral researchers. Dashed lines are projections: prospective researchers who plan to join.' : 'Each line is a current doctoral researcher.',
+      leadPhotoEl: slotEl('team-lead', LEAD_PHOTO, 'Portrait: Dr Thanos Vostanis')
+    };
+  }
+}
+</script>
+</body>
+</html>

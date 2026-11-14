@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="display:flex;flex-direction:column;gap:18px;font-family:'Atkinson Hyperlegible Next','Atkinson Hyperlegible',system-ui,sans-serif;color:#0B0C0E">
+
+  <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 32px;padding:clamp(18px,2.4vw,28px);background:#00376D;color:#FFFFFF;border-radius:6px">
+    <div aria-live="polite" style="display:flex;flex-direction:column;gap:6px;flex:1 1 320px;max-width:46em">
+      <p style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#C9D6E6">{{ tourEyebrow }}</p>
+      <p style="margin:0;font-size:18px;line-height:1.5;text-wrap:pretty">{{ tourText }}</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px">
+      <sc-if value="{{ touring }}" hint-placeholder-val="{{ false }}">
+        <button type="button" onClick="{{ tourBack }}" style="min-height:44px;padding:0 18px;border-radius:999px;border:1.5px solid #FFFFFF;background:#00376D;color:#FFFFFF;font-family:'Jost',sans-serif;font-size:16px;cursor:pointer">Back</button>
+      </sc-if>
+      <button type="button" onClick="{{ tourNext }}" style="min-height:44px;padding:0 22px;border-radius:999px;border:1.5px solid #FFFFFF;background:#FFFFFF;color:#00376D;font-family:'Jost',sans-serif;font-size:16px;cursor:pointer">{{ tourNextLabel }}</button>
+      <sc-if value="{{ touring }}" hint-placeholder-val="{{ false }}">
+        <button type="button" onClick="{{ tourEnd }}" style="min-height:44px;padding:0 14px;border:0;background:none;color:#FFFFFF;font-family:'Jost',sans-serif;font-size:16px;text-decoration:underline;text-underline-offset:3px;cursor:pointer">End tour</button>
+      </sc-if>
+    </div>
+  </div>
+
+  <div role="group" aria-label="Zoom" style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+    <ol style="list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;border:1.5px solid #00376D;border-radius:999px;overflow:hidden">
+      <sc-for list="{{ viewBtns }}" as="b" hint-placeholder-count="4">
+        <li><button type="button" aria-pressed="{{ b.pressed }}" onClick="{{ b.pick }}" style="min-height:44px;padding:0 18px;border:0;background:{{ b.bg }};color:{{ b.fg }};font-family:'Jost',sans-serif;font-size:16px;cursor:pointer">{{ b.label }}</button></li>
+      </sc-for>
+    </ol>
+    <button type="button" onClick="{{ zoomIn }}" aria-disabled="{{ inDisabled }}" style="min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid #00376D;background:#FFFFFF;color:#00376D;font-family:'Jost',sans-serif;font-size:16px;cursor:pointer;opacity:{{ inOpacity }}">+ Zoom in: closer look</button>
+    <button type="button" onClick="{{ zoomOut }}" aria-disabled="{{ outDisabled }}" style="min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid #00376D;background:#FFFFFF;color:#00376D;font-family:'Jost',sans-serif;font-size:16px;cursor:pointer;opacity:{{ outOpacity }}">− Zoom out: bigger picture</button>
+    <button type="button" onClick="{{ reset }}" style="min-height:44px;padding:0 6px;border:0;background:none;color:#00376D;font-family:'Jost',sans-serif;font-size:16px;text-decoration:underline;text-underline-offset:3px;cursor:pointer">Reset</button>
+  </div>
+
+  <sc-if value="{{ isDaily }}" hint-placeholder-val="{{ true }}">
+    <div role="group" aria-label="Which daily chart" style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px">
+      <button type="button" onClick="{{ pagePrev }}" aria-disabled="{{ prevDisabled }}" style="min-height:44px;padding:0 14px;border-radius:999px;border:1px solid #5B7AA3;background:#FFFFFF;color:#0B0C0E;font-family:'Jost',sans-serif;font-size:15px;cursor:pointer;opacity:{{ prevOpacity }}">‹ Earlier 20 weeks</button>
+      <span aria-live="polite" style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#00376D">{{ pageLabel }}</span>
+      <button type="button" onClick="{{ pageNext }}" aria-disabled="{{ nextDisabled }}" style="min-height:44px;padding:0 14px;border-radius:999px;border:1px solid #5B7AA3;background:#FFFFFF;color:#0B0C0E;font-family:'Jost',sans-serif;font-size:15px;cursor:pointer;opacity:{{ nextOpacity }}">Later 20 weeks ›</button>
+    </div>
+  </sc-if>
+  <sc-if value="{{ notDaily }}" hint-placeholder-val="{{ false }}">
+    <div role="group" aria-label="Which timing stands for each period" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;font-size:16px">
+      <span>{{ modePrompt }}</span>
+      <sc-for list="{{ modeBtns }}" as="b" hint-placeholder-count="2">
+        <button type="button" aria-pressed="{{ b.pressed }}" onClick="{{ b.pick }}" style="min-height:44px;padding:0 14px;border-radius:999px;border:1px solid #5B7AA3;background:{{ b.bg }};color:{{ b.fg }};font-family:'Jost',sans-serif;font-size:15px;cursor:pointer">{{ b.label }}</button>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <figure style="margin:0;display:flex;flex-direction:column;gap:10px">
+    <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+      <p style="margin:0;font-size:14px;color:#3F4A5A">Swipe the chart sideways to see all of it.</p>
+    </sc-if>
+    <div ref="{{ scrollRef }}" tabindex="0" role="group" aria-label="Chart. On a small screen it scrolls sideways." style="overflow-x:auto;background:#FFFFFF;border:1.5px solid #00376D;border-radius:6px;padding:8px">
+      <svg role="img" aria-label="{{ aria }}" viewBox="0 0 1036 709" style="display:block;width:100%;min-width:720px;height:auto;opacity:{{ chartOpacity }};transition:opacity 160ms ease">
+        <sc-if value="{{ hasBand }}" hint-placeholder-val="{{ false }}">
+          <rect x="{{ band.x }}" y="78" width="{{ band.w }}" height="564.6" fill="#00376D" opacity="0.08"></rect>
+        </sc-if>
+        <path d="{{ ch.fine }}" stroke="#DCE4EE" stroke-width="1" fill="none"></path>
+        <path d="{{ ch.mid }}" stroke="#A9BBD2" stroke-width="1" fill="none"></path>
+        <path d="{{ ch.bold }}" stroke="#5B7AA3" stroke-width="1.25" fill="none"></path>
+        {{ textEls }}
+        <path d="{{ ch.floor }}" stroke="#0B0C0E" stroke-width="1.75" fill="none"></path>
+        {{ celLines }}
+        <path d="{{ ch.dots }}" stroke="#0B0C0E" stroke-width="{{ ch.dotW }}" stroke-linecap="round" fill="none"></path>
+        <path d="{{ ch.xs }}" stroke="#00376D" stroke-width="1.5" fill="none"></path>
+        {{ celLabels }}
+        <sc-if value="{{ hasSel }}" hint-placeholder-val="{{ false }}">
+          <path d="{{ selD }}" stroke="#00376D" stroke-width="2" fill="none"></path>
+        </sc-if>
+        <rect x="92" y="78" width="840" height="564.6" fill="transparent" onMouseMove="{{ probe }}" onClick="{{ probe }}" style="cursor:crosshair"></rect>
+      </svg>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px">
+      <div role="group" aria-label="Step through the dots" style="display:flex;gap:8px">
+        <button type="button" onClick="{{ selPrev }}" aria-label="Previous dot" style="min-width:44px;min-height:44px;border-radius:999px;border:1px solid #5B7AA3;background:#FFFFFF;color:#00376D;font-size:20px;line-height:1;cursor:pointer">‹</button>
+        <button type="button" onClick="{{ selNext }}" aria-label="Next dot" style="min-width:44px;min-height:44px;border-radius:999px;border:1px solid #5B7AA3;background:#FFFFFF;color:#00376D;font-size:20px;line-height:1;cursor:pointer">›</button>
+      </div>
+      <p aria-live="polite" style="margin:0;flex:1 1 260px;font-family:'IBM Plex Mono',monospace;font-size:14px;line-height:1.45;color:#00376D">{{ readout }}</p>
+    </div>
+    <figcaption style="font-size:14px;color:#3F4A5A;max-width:64em">Example data for one learner, not from a real person. Counted: words read aloud correctly and incorrectly from a passage, in one-minute timings on school days. Dots are correct responses, crosses are incorrect responses, and the short dashes on the 1 line mark the one-minute counting time. Drawn in the lab’s colours.</figcaption>
+  </figure>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px clamp(24px,4vw,56px);padding:clamp(18px,2.4vw,28px);background:#F3F6FA;border-left:4px solid #00376D;border-radius:0 6px 6px 0">
+    <div aria-live="polite" style="display:flex;flex-direction:column;gap:8px">
+      <h3 style="margin:0;font-family:'Jost',sans-serif;font-weight:400;font-size:22px;color:#00376D">{{ ex.title }}</h3>
+      <p style="margin:0;text-wrap:pretty">{{ ex.what }}</p>
+      <p style="margin:0;text-wrap:pretty">{{ ex.how }}</p>
+    </div>
+    <div aria-live="polite" style="display:flex;flex-direction:column;gap:8px">
+      <h3 style="margin:0;font-family:'Jost',sans-serif;font-weight:400;font-size:22px;color:#00376D">{{ changeTitle }}</h3>
+      <p style="margin:0;text-wrap:pretty">{{ changeText }}</p>
+      <p style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:14px;color:#00376D">{{ celText }}</p>
+      <ol style="list-style:none;margin:6px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;font-size:14px">
+        <sc-for list="{{ ladder }}" as="l" hint-placeholder-count="4">
+          <li style="display:inline-flex;align-items:center;gap:8px"><span style="padding:2px 9px;border-radius:999px;border:1px solid #00376D;background:{{ l.bg }};color:{{ l.fg }}">{{ l.text }}</span><span aria-hidden="true" style="color:#3F4A5A">{{ l.arrow }}</span></li>
+        </sc-for>
+      </ol>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;1100px&quot;}}">
+// ---------------------------------------------------------------------------------------------
+// Standard Celeration Chart explorer: one example dataset, shown on the daily, weekly, monthly
+// and yearly charts. Nothing is averaged or rescaled between views: the coarser charts show one
+// real timing per week, month or year (the best or the first), as precision teachers do.
+// ---------------------------------------------------------------------------------------------
+const NAVY = '#00376D', INK = '#0B0C0E';
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const dateOf = d => new Date(2026, 8, 6 + d);              // day 0 is Sunday 6 September 2026
+const fmt = dt => `${dt.getDate()} ${MONTHS[dt.getMonth()].slice(0, 3)} ${dt.getFullYear()}`;
+const fmtDay = dt => `${DAYS[dt.getDay()]} ${fmt(dt)}`;
+
+// --- The example dataset ----------------------------------------------------------------------
+// One-minute timings on school days (Monday to Friday) across one school year, 7 September 2026
+// to 23 July 2027. School holidays (weeks counted from 0): autumn half-term 7, Christmas 15-16,
+// spring half-term 23, Easter 29-30, summer half-term 38. A few absences and one bank holiday.
+// Corrects grow by about x1.045 per school week and incorrects fall by about /1.05, with a small
+// set-back after every holiday and ordinary day-to-day bounce. Counts are whole numbers. The values
+// are generated once from a fixed seed, so every visitor and every view sees the same timings.
+const SERIES = (() => {
+  let seed = 20260906;
+  const rnd = () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  const noise = () => rnd() + rnd() + rnd() - 1.5;         // roughly normal, sd 0.5
+  const HOLIDAY = { 7: 1, 15: 2, 16: 2, 23: 1, 29: 2, 30: 2, 38: 1 };
+  const pts = [];
+  let c = 38, e = 9, back = 0;
+  for (let w = 0; w <= 45; w++) {
+    if (HOLIDAY[w]) { back = HOLIDAY[w]; continue; }
+    if (back) { c *= back === 2 ? 0.85 : 0.9; e *= back === 2 ? 1.3 : 1.2; back = 0; }
+    for (let i = 1; i <= 5; i++) {
+      c *= Math.pow(1.045, 1 / 5); e *= Math.pow(1 / 1.05, 1 / 5);
+      const d = w * 7 + i, away = rnd() < 0.03 || d === 239; // 239 = Monday 3 May 2027, a bank holiday
+      const cc = Math.max(1, Math.round(c * Math.exp(0.13 * noise()))), ee = Math.max(0, Math.round(e * Math.exp(0.5 * noise())));
+      if (!away) pts.push({ d, c: cc, e: ee });
+    }
+  }
+  return pts;
+})();
+const LAST_DAY = SERIES[SERIES.length - 1].d, PAGES = Math.ceil((LAST_DAY + 1) / 140);
+
+// --- The four charts --------------------------------------------------------------------------
+// Each has six x10 cycles (.001 to 1,000 per minute) and 20 celeration periods across, so a x2
+// celeration rises at about 34 degrees on all of them.
+const VIEWS = {
+  daily: { name: 'Daily', line: 'day', units: 140, period: 7, botEvery: 14, botMax: 140, bottom: 'SUCCESSIVE CALENDAR DAYS', unit: 'per week' },
+  weekly: { name: 'Weekly', line: 'week', units: 100, period: 5, botEvery: 10, botMax: 100, bottom: 'SUCCESSIVE CALENDAR WEEKS', unit: 'per month' },
+  monthly: { name: 'Monthly', line: 'month', units: 120, period: 6, botEvery: 12, botMax: 120, bottom: 'SUCCESSIVE CALENDAR MONTHS', unit: 'per six months' },
+  yearly: { name: 'Yearly', line: 'year', units: 100, period: 5, botEvery: 10, botMax: 90, bottom: 'SUCCESSIVE CALENDAR YEARS', unit: 'per five years' }
+};
+const ORDER = ['daily', 'weekly', 'monthly', 'yearly'];
+
+// Which timing stands for a week, month or year: the best (most corrects) or the first.
+const choose = (group, mode) => group.reduce((a, p) => (mode === 'first' ? (p.d < a.d ? p : a) : (p.c > a.c ? p : a)));
+const groupBy = keyOf => { const m = new Map(); SERIES.forEach(p => { const k = keyOf(p); if (!m.has(k)) m.set(k, []); m.get(k).push(p); }); return [...m.entries()]; };
+const WEEK_OF = p => Math.floor(p.d / 7) + 1;                                   // week 1 is plotted on line 1
+const MONTH_OF = p => { const dt = dateOf(p.d); return dt.getMonth() + 1 + 12 * (dt.getFullYear() - 2026); }; // January 2026 is line 1
+const YEAR_OF = p => dateOf(p.d).getFullYear() - 2020;                          // 2020 is line 0
+const COUNTS = { daily: SERIES.length, weekly: groupBy(WEEK_OF).length, monthly: groupBy(MONTH_OF).length, yearly: groupBy(YEAR_OF).length };
+
+function pointsFor(view, page, mode) {
+  const word = mode === 'first' ? 'First' : 'Best';
+  const one = (t, group, label) => { const p = choose(group, mode); return { t, c: p.c, e: p.e, label, detail: `${word.toLowerCase()} of ${group.length} timing${group.length > 1 ? 's' : ''}, taken on ${fmtDay(dateOf(p.d))}` }; };
+  if (view === 'daily') return SERIES.filter(p => p.d > page * 140 && p.d < page * 140 + 140).map(p => ({ t: p.d - page * 140, c: p.c, e: p.e, label: fmtDay(dateOf(p.d)), detail: 'one one-minute timing' }));
+  if (view === 'weekly') return groupBy(WEEK_OF).map(([k, g]) => one(k, g, `Week ${k}, beginning ${fmt(dateOf((k - 1) * 7))}`));
+  if (view === 'monthly') return groupBy(MONTH_OF).map(([k, g]) => one(k, g, `${MONTHS[(k - 1) % 12]} ${2026 + Math.floor((k - 1) / 12)}`));
+  return groupBy(YEAR_OF).map(([k, g]) => one(k, g, String(2020 + k)));
+}
+
+const cache = {};
+function build(view, page, mode) {
+  const key = `${view}|${view === 'daily' ? page : ''}|${view === 'daily' ? '' : mode}`;
+  if (cache[key]) return cache[key];
+  const def = VIEWS[view], data = pointsFor(view, page, mode);
+  const ml = 92, mt = 78, pw = 840, DEC = 94.1, ph = 6 * DEC, R = ml + pw, B = mt + ph;
+  const X = u => +(ml + u * pw / def.units).toFixed(1);
+  const Y = v => +(mt + (3 - Math.log10(v)) * DEC).toFixed(1);
+  let fine = '', mid = '', bold = '';
+  // Horizontal lines: six cycles, heavier at each power of ten, medium at each 5.
+  for (let e = -3; e < 3; e++) for (let k = 1; k <= 9; k++) {
+    const seg = `M${ml} ${Y(k * Math.pow(10, e))}H${R}`;
+    if (k === 1) bold += seg; else if (k === 5) mid += seg; else fine += seg;
+  }
+  bold += `M${ml} ${Y(1000)}H${R}`;
+  // Vertical lines: one per day, week, month or year, heavier at the start of each celeration period.
+  const Z = +(B + 17).toFixed(1);
+  for (let u = 0; u <= def.units; u++) {
+    const p = u % def.period === 0;
+    if (p) bold += `M${X(u)} ${mt}V${B.toFixed(1)}`; else fine += `M${X(u)} ${mt}V${B.toFixed(1)}`;
+    bold += `M${X(u)} ${Z}v${p ? -8 : -4}`;
+  }
+  bold += `M${ml} ${Z}H${R}`;
+
+  const text = [];
+  const tag = (x, y, t) => text.push({ x, y, t, anchor: 'middle', size: 7 });
+  const ink = (x, y, t, size) => text.push({ x, y, t: String(t), anchor: 'middle', size: size || 11, ink: true });
+  [[1000, '1,000', 1], [500, '500', 0], [100, '100', 1], [50, '50', 0], [10, '10', 1], [5, '5', 0], [1, '1', 1], [0.5, '.5', 0], [0.1, '.1', 1], [0.05, '.05', 0], [0.01, '.01', 1], [0.005, '.005', 0], [0.001, '.001', 1]]
+    .forEach(([v, t, big]) => text.push({ x: ml - 10, y: Y(v), t, anchor: 'end', size: big ? 17 : 13 }));
+  text.push({ x: ml - 10, y: Z, t: '0', anchor: 'end', size: 14 });
+  for (let u = 0; u <= def.botMax; u += def.botEvery) text.push({ x: X(u), y: B + 34, t: String(u), anchor: 'middle', size: 17 });
+  [[6, '10″ sec'], [4, '15″'], [3, '20″'], [2, '30″'], [1, '1′ min'], [0.5, '2′'], [0.2, '5′'], [0.1, '10′'], [0.05, '20′'], [0.02, '50′'], [0.01, '100′'], [0.005, '200′'], [0.002, '500′'], [0.001, '1000′']]
+    .forEach(([v, t]) => text.push({ x: R + 10, y: Y(v), t, anchor: 'start', size: 12 }));
+  [[1 / 60, '– 1° hr'], [1 / 120, '– 2°'], [1 / 240, '– 4°'], [1 / 480, '– 8°'], [1 / 960, '– 16°'], [1 / 1440, '– 24°']]
+    .forEach(([v, t]) => text.push({ x: R + 52, y: Y(v), t, anchor: 'start', size: 11 }));
+  text.push({ x: ml + pw / 2, y: B + 56, t: def.bottom, anchor: 'middle', size: 15, ls: 1 });
+  text.push({ x: 22, y: mt + ph / 2, t: 'COUNT PER MINUTE', anchor: 'middle', size: 15, ls: 1, rot: -90 });
+  text.push({ x: R + 78, y: mt + ph * 0.32, t: 'COUNTING TIMES', anchor: 'middle', size: 14, ls: 1, rot: 90 });
+
+  // The scale above the grid, as printed on each chart, with this learner's dates written in.
+  const flag = (x, dt) => {           // a DAY / MO / YR date flag
+    const y = mt - 48;
+    bold += `M${x} ${y + 18}V${y}H${x + 82}M${x + 26} ${y}v-5M${x + 50} ${y}v-5`;
+    tag(x + 13, y + 8, 'DAY'); tag(x + 38, y + 8, 'MO'); tag(x + 66, y + 8, 'YR');
+    ink(x + 13, y - 9, dt.getDate()); ink(x + 38, y - 9, dt.getMonth() + 1); ink(x + 66, y - 9, dt.getFullYear());
+  };
+  const big = (u, t) => text.push({ x: X(u), y: mt - 14, t: String(t), anchor: 'middle', size: 17 });
+  if (view === 'daily') {
+    // Weeks numbered 0 to 20 along the top, a date flag every four weeks, a tick at every Sunday line.
+    for (let w = 0; w <= 20; w++) bold += `M${X(w * 7)} ${mt}v-6`;
+    for (let k = 0; k <= 5; k++) { flag(X(k * 28), dateOf(page * 140 + k * 28)); big(k * 28, k * 4); }
+  } else if (view === 'weekly') {
+    // Weeks numbered along the top, a date flag every 20 weeks, a tick every ten weeks.
+    for (let w = 0; w <= 10; w++) bold += `M${X(w * 10)} ${mt}v-6`;
+    for (let k = 0; k <= 5; k++) { flag(X(k * 20), dateOf(k * 140)); big(k * 20, k * 20); }
+  } else if (view === 'monthly') {
+    // Years numbered 0 to 10, a YEAR line in each column, and the month initials above every month line.
+    const letters = 'JFMAMJJASOND';
+    for (let k = 0; k <= 10; k++) { bold += `M${X(k * 12)} ${mt}v-40`; text.push({ x: X(k * 12), y: mt - 52, t: String(k), anchor: 'middle', size: 17 }); }
+    for (let k = 0; k < 10; k++) {
+      const a = X(k * 12), b = X(k * 12 + 12), m = (a + b) / 2;
+      bold += `M${a + 16} ${mt - 30}H${b - 16}`; tag(m, mt - 23, 'YEAR'); ink(m, mt - 37, 2026 + k);
+    }
+    for (let u = 0; u <= def.units; u++) {
+      const i = (u + 11) % 12;   // line 0 is December, line 1 January
+      text.push({ x: X(u) + (i === 11 && u > 0 ? 3.5 : 0), y: mt - (i % 2 ? 5 : 13), t: letters[i], anchor: 'middle', size: 6.5 });
+    }
+  } else {
+    // Decades along the top (2020 is line 0), a 5 at each mid-decade, and the century marked.
+    const lab = (x, year, word) => { bold += `M${x - 20} ${mt - 30}H${x + 20}`; tag(x, mt - 23, word); ink(x, mt - 38, year); };
+    lab(ml - 48, 2000, 'CENTURY');
+    for (let k = 0; k <= 10; k++) {
+      bold += `M${X(k * 10)} ${mt}v-16`;
+      lab(X(k * 10), 2020 + k * 10, (2020 + k * 10) % 100 === 0 ? 'CENTURY' : 'DECADE');
+      if (k < 10) { bold += `M${X(k * 10 + 5)} ${mt}v-4`; text.push({ x: X(k * 10 + 5), y: mt - 13, t: '5', anchor: 'middle', size: 14 }); }
+    }
+  }
+
+  // Data. One-minute counting times put the record floor on the 1 line; a count of zero is plotted just below it.
+  let dots = '', xs = '', floor = '';
+  const k = 2.8;
+  if (view === 'daily') { [...new Set(data.map(p => Math.floor(p.t / 7)))].forEach(w => { floor += `M${X(w * 7 + 2)} ${Y(1)}H${X(w * 7 + 4)}`; }); }
+  else data.forEach(p => { floor += `M${X(p.t - 0.3)} ${Y(1)}H${X(p.t + 0.3)}`; });
+  const yE = p => Y(p.e > 0 ? p.e : 0.7);
+  data.forEach(p => {
+    dots += `M${X(p.t)} ${Y(p.c)}h0.01`;
+    const x = X(p.t), y = yE(p);
+    xs += `M${x - k} ${y - k}L${x + k} ${y + k}M${x - k} ${y + k}L${x + k} ${y - k}`;
+  });
+  // Celeration: least squares through the plotted points on the multiply scale, per celeration period.
+  // Zero counts cannot be placed on a multiply scale, so they are left out of the fit.
+  const fit = key => {
+    const pts = data.filter(p => p[key] > 0), n = pts.length;
+    const mx = pts.reduce((a, p) => a + p.t, 0) / n, my = pts.reduce((a, p) => a + Math.log10(p[key]), 0) / n;
+    let sxy = 0, sxx = 0; pts.forEach(p => { sxy += (p.t - mx) * (Math.log10(p[key]) - my); sxx += (p.t - mx) * (p.t - mx); });
+    const slope = sxx ? sxy / sxx : 0, at = t => Math.pow(10, my + slope * (t - mx)), f = Math.pow(10, Math.abs(slope) * def.period);
+    const t0 = data[0].t, t1 = data[data.length - 1].t;
+    return { x1: X(t0), y1: Y(at(t0)), x2: X(t1), y2: Y(at(t1)), value: `${slope >= 0 ? '×' : '÷'}${f < 1.2 ? f.toFixed(2) : f < 10 ? f.toFixed(1) : f.toFixed(0)}` };
+  };
+  const hasCel = data.length >= 5;
+  let C = {}, E = {};
+  if (hasCel) {
+    C = fit('c'); E = fit('e');
+    const place = (L, above) => {
+      L.label = `${L.value} ${def.unit}`;
+      if (L.x2 + 180 > R) { L.lx = (L.x1 + L.x2) / 2; L.ly = above ? Math.min(...data.map(p => Y(p.c))) - 16 : Math.max(...data.map(yE)) + 26; L.anchor = 'middle'; }   // clear of every plotted point
+      else { L.lx = L.x2 + 12; L.ly = L.y2 + (above ? 5 : -8); L.anchor = 'start'; }
+    };
+    place(C, true); place(E, false);
+  }
+  const out = {
+    fine, mid, bold, text, dots, xs, floor, hasCel, C, E, data,
+    dotW: view === 'daily' ? 5 : 6.5,
+    sel: data.map(p => { const x = X(p.t), a = Y(p.c), b = yE(p); return `M${x - 7} ${a}a7 7 0 1 0 14 0a7 7 0 1 0 -14 0M${x - 7} ${b}a7 7 0 1 0 14 0a7 7 0 1 0 -14 0`; }),
+    X
+  };
+  cache[key] = out;
+  return out;
+}
+
+const TOUR = [
+  { view: 'daily', page: 0, text: 'This is a daily chart. Each dot is one one-minute timing on one school day, and each cross is that day’s incorrect count. Point at a dot or tap it to read it. The gaps are school holidays.' },
+  { view: 'weekly', text: 'Zoom out to the weekly chart. Each line is now a week, so the timings of each week are shown by one dot. The shaded band is the 20 weeks you were just looking at.' },
+  { view: 'monthly', text: 'Zoom out again to the monthly chart. Each line is a month, labelled J to D above the grid, and each month is shown by one dot. The holiday gaps have gone and the direction over the whole year is easier to see.' },
+  { view: 'yearly', text: 'The yearly chart is the widest view: each line is a year. One school year gives only two dots, because it falls in two calendar years. That is too few for a celeration line.' },
+  { view: 'daily', page: 0, text: 'Now zoom back in. The daily chart shows what the wider views leave out: every single timing, the day-to-day bounce and the days with no practice. Zoom in to hone in on the detail and zoom out for the bigger picture. Both help you decide what to do next.' }
+];
+
+class Component extends DCLogic {
+  state = { view: 'daily', page: 0, mode: 'best', sel: null, prev: null, tour: null, fade: false, narrow: false };
+  scrollRef = React.createRef();
+  componentDidMount() {
+    // On a narrow screen the chart keeps a readable size and scrolls sideways; say so when that happens.
+    const el = this.scrollRef.current;
+    const measure = () => { const narrow = !!el && el.scrollWidth > el.clientWidth + 2; if (narrow !== this.state.narrow) this.setState({ narrow }); };
+    measure();
+    if (window.ResizeObserver && el) { this.ro = new ResizeObserver(measure); this.ro.observe(el); }
+  }
+  componentWillUnmount() { clearTimeout(this.ft); if (this.ro) this.ro.disconnect(); }
+  go(next) {
+    // Change view (or daily chart) with a short fade so the change of scale is noticeable.
+    const cur = this.state, target = { view: cur.view, page: cur.page, ...next };
+    if (target.view === cur.view && target.page === cur.page && next.tour === undefined) return;
+    const apply = () => { this.setState({ ...next, prev: target.view !== cur.view ? cur.view : cur.prev, sel: null, fade: false }); if (this.scrollRef.current) this.scrollRef.current.scrollLeft = 0; };
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return apply();
+    this.setState({ fade: true });
+    clearTimeout(this.ft); this.ft = setTimeout(apply, 170);
+  }
+  tourTo(i) { const s = TOUR[i]; this.go({ view: s.view, page: s.page != null ? s.page : this.state.page, tour: i }); }
+
+  renderVals() {
+    const { view, page, mode, sel, prev, tour, fade, narrow } = this.state;
+    const def = VIEWS[view], ch = build(view, page, mode), idx = ORDER.indexOf(view);
+    const word = mode === 'first' ? 'first' : 'best';
+
+    // The shaded band shows, on a wider chart, the span of the chart one step closer in.
+    let band = null;
+    if (view === 'weekly') band = [page * 20, Math.min(page * 20 + 20, 100)];
+    if (view === 'monthly') band = [8.5, 32.5];       // the weekly chart's 100 weeks: September 2026 to August 2028
+    if (view === 'yearly') band = [5.5, 15.5];        // the monthly chart's ten years: 2026 to 2035
+    const bandVals = band ? { x: ch.X(band[0]), w: +(ch.X(band[1]) - ch.X(band[0])).toFixed(1) } : { x: 0, w: 0 };
+
+    const pageStart = dateOf(page * 140), pageEnd = dateOf(page * 140 + 139);
+    const EX = {
+      daily: {
+        what: 'Each vertical line is one day, and the heavier lines are Sundays. Every dot is a single one-minute timing. One chart holds 140 days (20 weeks), so this school year fills three charts.',
+        how: 'Nothing is summarised here: every timing is plotted on the day it was taken. Celeration is read per week.'
+      },
+      weekly: {
+        what: 'Each vertical line is one week, and one chart holds 100 weeks. The heavier lines come every five weeks. They mark the period over which celeration is read on this chart, which the chart calls a month.',
+        how: `Each week is shown by one real timing, the ${word} of that week. Nothing is averaged or rescaled, so a dot here is a dot you could find on the daily chart. Celeration is read per month, which on this chart means per five weeks.`
+      },
+      monthly: {
+        what: 'Each vertical line is one month, with its initial (J to D) above the grid, and the heavier lines mark half years. One chart holds ten years.',
+        how: `Each month is shown by one real timing, the ${word} of that month. Celeration is read per six months.`
+      },
+      yearly: {
+        what: 'Each vertical line is one year, and the heavier lines mark every five years. One chart holds a century, with the decades written along the top.',
+        how: `Each year is shown by one real timing, the ${word} of that year. Celeration is read per five years, but two dots are not enough to draw a line.`
+      }
+    };
+    let changeTitle = 'Four lenses, one set of data', changeText = 'All four charts show the same timings. Each is a different lens for analysing them and deciding what to do next. Zoom in to spot the days or weeks of stronger or weaker progress. Zoom out to judge the overall direction. Zooming out does not shrink the picture: it changes what each line stands for, from a day to a week, a month or a year.';
+    if (prev && prev !== view) {
+      const out = ORDER.indexOf(view) > ORDER.indexOf(prev);
+      changeTitle = out ? 'You zoomed out: the bigger picture' : 'You zoomed in: a closer look';
+      changeText = out
+        ? `You stepped back to see more time at once. Each line was a ${VIEWS[prev].line}; now it is a ${def.line}. The ${COUNTS[prev]} ${prev === 'daily' ? 'timings' : 'dots'} of the ${VIEWS[prev].name.toLowerCase()} view are shown here by ${COUNTS[view]} dots, and the shaded band marks the span of the chart you came from.`
+        : `You moved closer to see more detail. Each line was a ${VIEWS[prev].line}; now it is a ${def.line}. You can now see detail the ${VIEWS[prev].name.toLowerCase()} chart leaves out${view === 'daily' ? ': every single timing, the day-to-day bounce and the days with no practice' : ''}.`;
+    }
+    const t = tour != null ? TOUR[tour] : null;
+    const point = sel != null ? ch.data[sel] : null;
+
+    return {
+      ch,
+      // Reading a dot: point at it, tap it, or step through the dots with the arrow buttons.
+      probe: e => {
+        const r = e.currentTarget.getBoundingClientRect(), u = (e.clientX - r.left) / r.width * def.units;
+        let best = -1, bd = Math.max(1.5, def.units * 0.025);
+        ch.data.forEach((q, i) => { const d = Math.abs(q.t - u); if (d < bd) { bd = d; best = i; } });
+        if (best >= 0 && best !== this.state.sel) this.setState({ sel: best });
+      },
+      selPrev: () => this.setState({ sel: sel == null ? ch.data.length - 1 : Math.max(0, sel - 1) }),
+      selNext: () => this.setState({ sel: sel == null ? 0 : Math.min(ch.data.length - 1, sel + 1) }),
+      textEls: React.createElement('g', null, ch.text.map((a, i) => React.createElement('text', { key: i, x: a.x, y: a.y, textAnchor: a.anchor, dominantBaseline: 'central', transform: a.rot ? `rotate(${a.rot} ${a.x} ${a.y})` : undefined, style: { fontFamily: a.ink ? "'IBM Plex Mono',monospace" : "'Jost',sans-serif", fontSize: a.size, letterSpacing: a.ls ? '0.06em' : undefined, fill: a.ink ? INK : NAVY } }, a.t))),
+      // Celeration lines and their labels are built here because text inside an SVG cannot hold a template hole.
+      celLines: ch.hasCel ? React.createElement('g', null, [[ch.C, INK], [ch.E, NAVY]].map(([L, col], i) => React.createElement('line', { key: i, x1: L.x1, y1: L.y1, x2: L.x2, y2: L.y2, stroke: col, strokeWidth: 1.5 }))) : null,
+      celLabels: ch.hasCel ? React.createElement('g', null, [[ch.C, INK], [ch.E, NAVY]].map(([L, col], i) => { const w = L.label.length * 8.5 + 10; return React.createElement('g', { key: i },
+        React.createElement('rect', { x: L.anchor === 'middle' ? L.lx - w / 2 : L.lx - 5, y: L.ly - 15, width: w, height: 21, fill: '#FFFFFF', opacity: 0.92 }),
+        React.createElement('text', { x: L.lx, y: L.ly, textAnchor: L.anchor, style: { fontFamily: "'IBM Plex Mono',monospace", fontSize: 14, fontWeight: 500, fill: col } }, L.label)); })) : null,
+      narrow, scrollRef: this.scrollRef,
+      chartOpacity: fade ? 0.15 : 1,
+      hasBand: !!band, band: bandVals,
+      hasSel: !!point, selD: point ? ch.sel[sel] : 'M0 0',
+      readout: point ? `${point.label}: ${point.c} correct and ${point.e} incorrect per minute (${point.detail}).` : 'Point at a dot, tap it, or use the arrows to read each timing.',
+      aria: `${def.name} per minute Standard Celeration Chart showing ${ch.data.length} ${view === 'daily' ? 'timings' : 'dots'} for the example learner.${ch.hasCel ? ` Corrects ${ch.C.label}; incorrects ${ch.E.label}.` : ''}`,
+      viewBtns: ORDER.map(v => ({ label: VIEWS[v].name, pressed: v === view ? 'true' : 'false', bg: v === view ? NAVY : '#FFFFFF', fg: v === view ? '#FFFFFF' : NAVY, pick: () => this.go({ view: v, tour: null }) })),
+      zoomIn: () => { if (idx > 0) this.go({ view: ORDER[idx - 1], tour: null }); },
+      zoomOut: () => { if (idx < ORDER.length - 1) this.go({ view: ORDER[idx + 1], tour: null }); },
+      inDisabled: idx === 0 ? 'true' : 'false', outDisabled: idx === ORDER.length - 1 ? 'true' : 'false',
+      inOpacity: idx === 0 ? 0.4 : 1, outOpacity: idx === ORDER.length - 1 ? 0.4 : 1,
+      reset: () => { this.setState({ mode: 'best' }); this.go({ view: 'daily', page: 0, tour: null }); },
+      isDaily: view === 'daily', notDaily: view !== 'daily',
+      pageLabel: `Daily chart ${page + 1} of ${PAGES} · ${fmt(pageStart)} to ${fmt(pageEnd)}`,
+      pagePrev: () => { if (page > 0) this.go({ page: page - 1 }); },
+      pageNext: () => { if (page < PAGES - 1) this.go({ page: page + 1 }); },
+      prevDisabled: page === 0 ? 'true' : 'false', nextDisabled: page === PAGES - 1 ? 'true' : 'false',
+      prevOpacity: page === 0 ? 0.4 : 1, nextOpacity: page === PAGES - 1 ? 0.4 : 1,
+      modePrompt: `Dot shown for each ${def.line}:`,
+      modeBtns: [['best', 'Best timing'], ['first', 'First timing']].map(([m, label]) => ({ label, pressed: m === mode ? 'true' : 'false', bg: m === mode ? NAVY : '#FFFFFF', fg: m === mode ? '#FFFFFF' : INK, pick: () => this.setState({ mode: m, sel: null }) })),
+      ex: { title: `${def.name} chart`, what: EX[view].what, how: EX[view].how },
+      changeTitle, changeText,
+      celText: ch.hasCel ? `Corrects ${ch.C.label} · Incorrects ${ch.E.label} (least squares through the dots shown)` : 'No celeration line: too few dots.',
+      ladder: ORDER.map((v, i) => ({ text: `${COUNTS[v]} ${v === 'daily' ? 'timings' : VIEWS[v].line + 's'}`, bg: v === view ? NAVY : '#FFFFFF', fg: v === view ? '#FFFFFF' : NAVY, arrow: i < ORDER.length - 1 ? '→' : '' })),
+      touring: !!t,
+      tourEyebrow: t ? `Tour · step ${tour + 1} of ${TOUR.length}` : 'Four lenses on the same data',
+      tourText: t ? t.text : 'Each chart is a lens for analysing the same data and deciding what to do next. Zoom in to hone in on the detail, day by day. Zoom out to see the bigger picture over weeks, months and years. Here: one learner, one school year of one-minute timings. New to these charts? Take the short tour.',
+      tourNextLabel: !t ? 'Start the tour' : tour === TOUR.length - 1 ? 'Finish' : 'Next',
+      tourNext: () => { if (!t) this.tourTo(0); else if (tour === TOUR.length - 1) this.go({ tour: null }); else this.tourTo(tour + 1); },
+      tourBack: () => { if (t && tour > 0) this.tourTo(tour - 1); },
+      tourEnd: () => this.go({ tour: null })
+    };
+  }
+}
+</script>
+</body>
+</html>
