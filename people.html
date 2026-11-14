@@ -189,7 +189,7 @@ const ALUMNI_LIST = [
   { name: '[Alumnus 6]', degree: 'MSc', role: '[Year completed] · now [current role]' },
 ];
 // The lab lead's portrait: '' shows the empty placeholder, or give the image file, for example 'assets/people/thanos.webp'.
-const LEAD_PHOTO = '';
+const LEAD_PHOTO = 'assets/people/thanos.webp';
 // (The image placeholder for each person needs its own id; these are made automatically.)
 let nPhd = 0, nPro = 0;
 const DOCTORAL = DOCTORAL_LIST.filter(p => SHOW_PROSPECTIVE || !p.prospective).map(p => ({ photo: '', ...p, slot: p.prospective ? `team-prospective-${++nPro}` : `team-phd-${++nPhd}` }));
