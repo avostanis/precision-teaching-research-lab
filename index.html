@@ -95,8 +95,6 @@ a:hover{color:#00264D}
           <p style="margin:0;text-wrap:pretty">We choose methods to fit each project, whether quantitative or qualitative, single-case or group. Above all, we want the work to be useful: it should make sense in the place it is meant for, matter to the people involved, and make a real difference to their lives.</p>
         </div>
       </div>
-      <span style="margin-top:20px;display:inline-flex;padding:3px 9px;border:1px dashed #5B7AA3;border-radius:3px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:#00376D;background:#F3F6FA"></span>
-      
     </section>
 
     <section id="infographics" aria-labelledby="posters-title" style="padding:clamp(88px,11vw,160px) 0 0">
@@ -114,7 +112,7 @@ a:hover{color:#00264D}
             <p style="margin:0;font-size:15px;color:#3F4A5A">{{ p.event }}</p>
             <div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px">
               <button type="button" onClick="{{ p.open }}" style="min-height:44px;padding:0 18px;border:1.5px solid #00376D;border-radius:999px;background:#FFFFFF;color:#00376D;font-family:'Jost',sans-serif;font-size:16px;cursor:pointer" style-hover="background:#F3F6FA">View infographic</button>
-              <a href="{{ p.pdfHref }}" aria-label="{{ p.pdfAria }}" style="display:inline-flex;align-items:center;gap:7px;min-height:44px;font-family:'Jost',sans-serif;font-size:16px"><svg aria-hidden="true" viewBox="0 0 16 16" width="15" height="15" style="display:block"><path d="M8 2V10.5M4.5 7.5L8 11L11.5 7.5M3 14H13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>Download JPEG</a>
+              <a href="{{ p.pdfHref }}" download aria-label="{{ p.pdfAria }}" style="display:inline-flex;align-items:center;gap:7px;min-height:44px;font-family:'Jost',sans-serif;font-size:16px"><svg aria-hidden="true" viewBox="0 0 16 16" width="15" height="15" style="display:block"><path d="M8 2V10.5M4.5 7.5L8 11L11.5 7.5M3 14H13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>Download JPEG</a>
             </div>
           </li>
         </sc-for>
@@ -165,7 +163,7 @@ a:hover{color:#00264D}
         <p style="margin:0;color:#3F4A5A">{{ lb.event }}</p>
         <p style="margin:0;text-wrap:pretty">{{ lb.summary }}</p>
         <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:auto;padding-top:12px">
-          <a href="{{ lb.pdfHref }}" style="display:inline-flex;align-items:center;min-height:48px;padding:0 22px;border-radius:999px;background:#00376D;color:#FFFFFF;font-family:'Jost',sans-serif;font-size:16px;text-decoration:none">{{ lb.pdfLabel }}</a>
+          <a href="{{ lb.pdfHref }}" download style="display:inline-flex;align-items:center;min-height:48px;padding:0 22px;border-radius:999px;background:#00376D;color:#FFFFFF;font-family:'Jost',sans-serif;font-size:16px;text-decoration:none">{{ lb.pdfLabel }}</a>
           <button type="button" onClick="{{ prev }}" style="min-height:48px;padding:0 18px;border:1.5px solid #00376D;border-radius:999px;background:#FFFFFF;color:#00376D;font-family:'Jost',sans-serif;font-size:16px;cursor:pointer">Previous</button>
           <button type="button" onClick="{{ next }}" style="min-height:48px;padding:0 18px;border:1.5px solid #00376D;border-radius:999px;background:#FFFFFF;color:#00376D;font-family:'Jost',sans-serif;font-size:16px;cursor:pointer">Next</button>
         </div>
