@@ -95,6 +95,7 @@ a:hover{color:#00264D}
           <p style="margin:0;text-wrap:pretty">We choose methods to fit each project, whether quantitative or qualitative, single-case or group. Above all, we want the work to be useful: it should make sense in the place it is meant for, matter to the people involved, and make a real difference to their lives.</p>
         </div>
       </div>
+      <span style="margin-top:20px;display:inline-flex;padding:3px 9px;border:1px dashed #5B7AA3;border-radius:3px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:#00376D;background:#F3F6FA">Draft copy · to confirm</span>
       
     </section>
 
@@ -105,8 +106,8 @@ a:hover{color:#00264D}
         <span style="display:inline-flex;padding:3px 9px;border:1px dashed #5B7AA3;border-radius:3px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:#00376D;background:#F3F6FA">Placeholder entries</span>
       </div>
       <p style="margin:0 0 clamp(32px,4vw,48px);max-width:40em;text-wrap:pretty">We want our findings to reach the people who can use them, not only those who read journals. Each infographic summarises one of our published studies on a single page, in plain English. Free to download and share.</p>
-      <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:40px 24px">
-        <sc-for list="{{ posters }}" as="p" hint-placeholder-count="6">
+      <ul id="infographic-list" style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:40px 24px">
+        <sc-for list="{{ shownPosters }}" as="p" hint-placeholder-count="3">
           <li style="display:flex;flex-direction:column;gap:14px">
             <div style="position:relative;aspect-ratio:3/4;background:#F3F6FA;border:1.5px solid #00376D;border-radius:4px;overflow:hidden">{{ p.slotEl }}</div>
             <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#00376D">{{ p.type }} · {{ p.year }}</span>
@@ -119,6 +120,9 @@ a:hover{color:#00264D}
           </li>
         </sc-for>
       </ul>
+      <sc-if value="{{ hasMorePosters }}" hint-placeholder-val="{{ true }}">
+        <button type="button" id="posters-toggle" aria-expanded="{{ postersExpanded }}" aria-controls="infographic-list" onClick="{{ togglePosters }}" style="display:inline-flex;align-items:center;gap:14px;min-height:56px;margin-top:clamp(32px,4vw,48px);padding:8px 26px;border-radius:999px;border:2px solid #00376D;background:#00376D;color:#FFFFFF;font-family:'Jost',sans-serif;font-size:19px;font-weight:500;line-height:1.2;text-align:left;cursor:pointer" style-hover="background:#00264D">{{ postersToggleLabel }}<span aria-hidden="true" style="font-size:26px;font-weight:400;line-height:1">{{ postersToggleIcon }}</span></button>
+      </sc-if>
     </section>
 
     <section id="more" aria-labelledby="more-title" style="padding:clamp(88px,11vw,160px) 0 0">
@@ -210,6 +214,8 @@ const GRID_V = Array.from({ length: 21 }, (_, i) => ({ x: i * 5 }));
 //   image: the thumbnail, for example 'assets/infographics/short-name.webp' ('' shows the placeholder)
 //   pdf:   the file to download, for example 'assets/infographics/short-name.pdf' ('' while not ready)
 // ---------------------------------------------------------------------------------------------
+// HOW MANY INFOGRAPHICS TO SHOW before the "Show all" button (the newest come first).
+const SHOW_FIRST = 3;
 const POSTER_LIST = [
   { title: '[Infographic title, placeholder 1]', year: '2026', basedOn: '[the publication it is based on]', summary: '[Plain-English summary placeholder: two or three sentences on what the study asked and what it found.]', image: '', pdf: '' },
   { title: '[Infographic title, placeholder 2]', year: '2026', basedOn: '[the publication it is based on]', summary: '[Plain-English summary placeholder: two or three sentences on what the study asked and what it found.]', image: '', pdf: '' },
@@ -326,7 +332,18 @@ class Component extends DCLogic {
       fanLabelEls: React.createElement('g', null, fan.labels.map((l, i) => React.createElement('text', { key: i, x: l.x, y: l.y, transform: l.tf, textAnchor: 'middle', dominantBaseline: 'central', style: { fontFamily: "'IBM Plex Mono',monospace", fontSize: 15, fontWeight: 500, fill: '#0B0C0E', opacity: l.op, transition: l.t } }, l.text))),
       wrapRef: this.wrapRef, closeRef: this.closeRef,
       ...railVals,
-      posters: POSTERS.map((p, i) => ({ ...p, open: e => this.openLb(i, e) })),
+      shownPosters: POSTERS.map((p, i) => ({ ...p, open: e => this.openLb(i, e) })).slice(0, this.state.allPosters ? POSTERS.length : SHOW_FIRST),
+      hasMorePosters: POSTERS.length > SHOW_FIRST,
+      postersExpanded: this.state.allPosters ? 'true' : 'false',
+      postersToggleLabel: this.state.allPosters ? 'Show fewer infographics' : `Show all ${POSTERS.length} infographics`,
+      postersToggleIcon: this.state.allPosters ? '−' : '+',
+      togglePosters: () => {
+        const opening = !this.state.allPosters;
+        this.setState({ allPosters: opening }, () => {
+          if (opening) { const card = document.querySelectorAll('#infographic-list li')[SHOW_FIRST]; const b = card && card.querySelector('button'); if (b) b.focus(); }
+          else { const t = document.getElementById('posters-toggle'); if (t) t.scrollIntoView({ block: 'center' }); }
+        });
+      },
       lbOpen: lb != null, lb: cur, lbPos: lb != null ? `${lb + 1} of ${POSTERS.length}` : '',
       close: () => this.closeLb(), stop: e => e.stopPropagation(),
       prev: () => this.step(-1), next: () => this.step(1)
