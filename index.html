@@ -350,15 +350,6 @@ class Component extends DCLogic {
       lbOpen: lb != null, lb: cur, lbPos: lb != null ? `${lb + 1} of ${POSTERS.length}` : '',
       close: () => this.closeLb(),
       stop: e => e.stopPropagation(),
-      fullscreen: () => {
-        const poster = this.state.lb != null ? POSTERS[this.state.lb] : null;
-        if (!poster || !poster.image) return;
-        window.open(
-          new URL(poster.image, window.location.href).href,
-          '_blank',
-          'noopener,noreferrer'
-        );
-      },
       prev: () => this.step(-1),
       next: () => this.step(1)
     };
