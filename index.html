@@ -115,7 +115,7 @@ a:hover{color:#00264D}
             <p style="margin:0;font-size:15px;color:#3F4A5A">{{ p.event }}</p>
             <div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px">
               <button type="button" onClick="{{ p.open }}" style="min-height:44px;padding:0 18px;border:1.5px solid #00376D;border-radius:999px;background:#FFFFFF;color:#00376D;font-family:'Jost',sans-serif;font-size:16px;cursor:pointer" style-hover="background:#F3F6FA">View infographic</button>
-              <a href="{{ p.pdfHref }}" aria-label="{{ p.pdfAria }}" style="display:inline-flex;align-items:center;gap:7px;min-height:44px;font-family:'Jost',sans-serif;font-size:16px"><svg aria-hidden="true" viewBox="0 0 16 16" width="15" height="15" style="display:block"><path d="M8 2V10.5M4.5 7.5L8 11L11.5 7.5M3 14H13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>Download PDF</a>
+              <a href="{{ p.pdfHref }}" aria-label="{{ p.pdfAria }}" style="display:inline-flex;align-items:center;gap:7px;min-height:44px;font-family:'Jost',sans-serif;font-size:16px"><svg aria-hidden="true" viewBox="0 0 16 16" width="15" height="15" style="display:block"><path d="M8 2V10.5M4.5 7.5L8 11L11.5 7.5M3 14H13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>Download JPEG</a>
             </div>
           </li>
         </sc-for>
@@ -234,8 +234,8 @@ const slotEl = (id, src, placeholder) => React.createElement('image-slot', { id,
 const POSTERS = POSTER_LIST.map((p, i) => ({
   type: 'Infographic', image: '', pdf: '', ...p,
   event: `Summarises: ${p.basedOn}`,
-  pdfHref: p.pdf || '#', pdfLabel: p.pdf ? 'Download PDF' : 'Download PDF [placeholder]',
-  pdfAria: `Download PDF: ${p.title}`,
+  pdfHref: p.pdf || '#', pdfLabel: p.pdf ? 'Download JPEG' : 'Download unavailable',
+  pdfAria: `Download JPEG: ${p.title}`,
   slot: `poster-${i + 1}`,
   ph: 'Infographic thumbnail (export page 1 of the PDF)'
 })).map(p => ({ ...p, slotEl: slotEl(p.slot, p.image, p.ph) }));
