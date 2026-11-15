@@ -76,8 +76,18 @@ a:hover{color:#00264D}
         <span style="margin-top:6px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:#00376D">{{ doc.sel.role }}</span>
         <h3 style="margin:0;font-family:'Jost',sans-serif;font-weight:300;font-size:clamp(28px,3vw,38px);line-height:1.1">{{ doc.sel.name }}</h3>
         <p style="margin:0;color:#3F4A5A;text-wrap:pretty">{{ doc.sel.bio }}</p>
-        <p style="margin:0;display:flex;flex-wrap:wrap;gap:6px 18px;font-size:16px"><a href="#">ORCID</a><a href="#">LinkedIn</a><a href="#">Email</a></p>
-      </article>
+    <p style="margin:0;display:flex;flex-wrap:wrap;gap:6px 18px;font-size:16px">
+  <sc-if value="{{ doc.sel.orcid }}">
+    <a href="{{ doc.sel.orcid }}" target="_blank" rel="noopener noreferrer">ORCID</a>
+  </sc-if>
+  <sc-if value="{{ doc.sel.linkedin }}">
+    <a href="{{ doc.sel.linkedin }}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+  </sc-if>
+  <sc-if value="{{ doc.sel.email }}">
+    <a href="mailto:{{ doc.sel.email }}">Email</a>
+  </sc-if>
+</p>
+    </article>
     </div>
   </section>
   </sc-if>
@@ -161,7 +171,15 @@ const SHOW_PROSPECTIVE = false;
 // ---------------------------------------------------------------------------------------------
 const DOCTORAL_LIST = [
   { name: '[Doctoral researcher 1]', role: 'PhD researcher · Year [n]', bio: '[One or two sentences on the thesis topic and the outcomes it aims to improve.]', photo: '' },
-  { name: 'Anthony Cox', role: 'PhD researcher · Year 1', bio: 'Anthony Cox is undertaking a PhD exploring how young people with special educational needs and disabilities (SEND) can be best prepared for adulthood, with a focus on employment, independence and social inclusion.]', photo: 'assets/people/ant.webp' },
+{
+  name: 'Anthony Cox',
+  role: 'PhD researcher · University of Kent',
+  bio: 'Anthony is undertaking a PhD exploring how young people with special educational needs and disabilities (SEND) can be best prepared for adulthood, with a focus on employment, independence and social inclusion.',
+  photo: 'assets/people/anthony.webp',
+  orcid: 'https://orcid.org/0009-0007-2853-7511',
+  linkedin: 'https://www.linkedin.com/in/anthony-cox-ukba-cert-bcba-687a352a1/',
+  email: 'afc35@kent.ac.uk'
+},
   { name: '[Doctoral researcher 3]', role: 'PhD researcher · Year [n]', bio: '[One or two sentences on the thesis topic and the outcomes it aims to improve.]', photo: '' },
   { name: '[Doctoral researcher 4]', role: 'PhD researcher · Year [n]', bio: '[One or two sentences on the thesis topic and the outcomes it aims to improve.]', photo: '' },
   { name: '[Doctoral researcher 5]', role: 'PhD researcher · Year [n]', bio: '[One or two sentences on the thesis topic and the outcomes it aims to improve.]', photo: '' },
