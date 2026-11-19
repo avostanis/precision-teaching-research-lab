@@ -48,7 +48,34 @@
     </span>
   </div>
 </footer>
+<button type="button" aria-label="Back to top" title="Back to top" onClick="{{ toTop }}" style="position:fixed;right:clamp(16px,3vw,32px);bottom:clamp(16px,3vw,32px);z-index:50;width:48px;height:48px;padding:0;border:0;border-radius:999px;background:#00376D;color:#FFFFFF;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 10px rgba(0,55,109,0.28);opacity:{{ btnOpacity }};visibility:{{ btnVisibility }};transition:opacity 200ms ease,visibility 200ms ease">
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false"><path d="M10 16V4M4.5 9.5L10 4l5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;420px&quot;}}"></script>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;420px&quot;}}">
+class Component extends DCLogic {
+  state = { show: false };
+  componentDidMount() {
+    // The button appears once the reader has scrolled about one screen down.
+    this.onS = () => { const show = window.scrollY > 600; if (show !== this.state.show) this.setState({ show }); };
+    this.onS();
+    window.addEventListener('scroll', this.onS, { passive: true });
+  }
+  componentWillUnmount() { window.removeEventListener('scroll', this.onS); }
+  renderVals() {
+    return {
+      btnOpacity: this.state.show ? 1 : 0,
+      btnVisibility: this.state.show ? 'visible' : 'hidden',
+      toTop: () => {
+        const calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({ top: 0, behavior: calm ? 'auto' : 'smooth' });
+        // Hand keyboard focus back to the top of the page, since the button hides itself.
+        const home = document.querySelector('a[aria-label="PT Research Lab, home"]');
+        if (home) home.focus({ preventScroll: true });
+      }
+    };
+  }
+}
+</script>
 </body>
 </html>
