@@ -172,4 +172,127 @@ const NAVY = '#00376D', INK = '#0B0C0E', ROW = 44;
 // THE PEOPLE LISTS. To add, change or remove a person, edit the lines below. One line per person.
 // Keep the quotation marks and the comma at the end of each line.
 //   photo: leave as '' to show the empty placeholder, or give the image file, for example
-//          photo: 'assets/people/first-name.webp'  (only with
+//          photo: 'assets/people/first-name.webp'  (only with that person's consent)
+//   prospective: true  marks someone as a prospective doctoral researcher.
+//   orcid, linkedin, email: optional. Leave any of them out and that link is not shown.
+//
+// TO HIDE ALL PROSPECTIVE RESEARCHERS: change true to false on the next line. Nothing else needs to change;
+// their lines can stay in the list below, ready for when you want to show them again.
+// ---------------------------------------------------------------------------------------------
+const SHOW_PROSPECTIVE = false;
+// ---------------------------------------------------------------------------------------------
+const DOCTORAL_LIST = [
+  { name: 'Tracy Mapp', role: 'PhD researcher · University of Kent', bio: 'Tracy is undertaking a PhD exploring foundational English and maths education for adults in prisons in England, with a particular focus on autistic people and those with learning disabilities. Her research uses qualitative, quantitative and mixed-methods approaches to investigate educational experiences, learning needs and outcomes, and how teaching and support can be improved.', photo: 'assets/people/tracy.webp', orcid: 'https://orcid.org/0009-0006-3307-9570', linkedin: 'https://www.linkedin.com/in/tracymapp', email: 't.mapp@kent.ac.uk' },
+  { name: 'Clarissa Feuerer', role: 'PhD researcher · University of Kent', bio: 'Clarissa is undertaking a PhD exploring how Skill-Based Treatment (SBT) can be effectively implemented and sustained in real-world settings. Her research focuses on supporting the development of communication skills and reducing behaviours that challenge, with particular attention to the practical application and sustainability of SBT.', photo: 'assets/people/clarissa.webp', orcid: 'https://orcid.org/0009-0005-7838-8863', linkedin: 'https://www.linkedin.com/in/clarissa-feuerer-b9b784a4', email: 'ckf3@kent.ac.uk' },
+  { name: 'Julie Plaehn', role: 'PhD researcher · University of Kent', bio: 'Julie is undertaking a PhD investigating the relationship between motor skill fluency and verbal behaviour in autistic individuals. Her research examines whether differences in motor fluency influence the acquisition and maintenance of verbal skills, and whether incorporating motor-based assessments into behaviour-analytic interventions can improve learning outcomes.', photo: 'assets/people/julie.webp', orcid: 'https://orcid.org/0009-0005-0256-5990', linkedin: 'https://www.linkedin.com/in/julie-p-170229195', email: 'Julieplaehn@gmail.com' },
+  { name: 'Veronica Baroni', role: 'PhD researcher · Università Cattolica del Sacro Cuore', bio: 'Veronica is undertaking a PhD focused on co-designing an evidence-based Social-Emotional Learning (SEL) intervention for Italian preschools. Her research integrates developmental and behaviour-analytic approaches to develop a sustainable, teacher-led intervention that can be incorporated into everyday classroom routines with minimal additional effort.', photo: 'assets/people/veronica.webp', orcid: 'https://orcid.org/0009-0008-4591-1883', linkedin: 'https://www.linkedin.com/in/veronica-baroni-2b4b98137', email: 'veronica.baroni1@unicatt.it' },
+  { name: 'Anthony Cox', role: 'PhD researcher · University of Kent', bio: 'Anthony is undertaking a PhD exploring how young people with special educational needs and disabilities (SEND) can be best prepared for adulthood, with a focus on employment, independence and social inclusion.', photo: 'assets/people/anthony.webp', orcid: 'https://orcid.org/0009-0007-2853-7511', linkedin: 'https://www.linkedin.com/in/anthony-cox-ukba-cert-bcba-687a352a1/', email: 'afc35@kent.ac.uk' },
+];
+const COLLAB_LIST = [
+  { name: 'Rianna Ritchie', role: 'Director and Consultant at ABA Pathways', bio: "Rianna is the Director and Consultant at ABA Pathways. Her work focuses on the application of Precision Teaching in early years settings, supporting the development of effective, evidence-based teaching practices.", photo: 'assets/people/rianna.webp', orcid: 'https://orcid.org/0009-0006-3782-8495', email: 'rianna.ritchie@abapathways.co.uk' },
+  { name: 'Emma Hawkins', role: 'Director of Education · Jigsaw CABAS School', bio: 'Emma is the Director of Education at Jigsaw CABAS School. Her work focuses on evidence-based educational practices and supporting effective teaching and learning for children and young people with additional learning needs.', photo: 'assets/people/emma.webp', orcid: 'https://orcid.org/0000-0003-2528-0101', email: 'EmmaHawkins@jigsawschool.co.uk' },
+  { name: 'Dr Magali-Fleur Barnoux', role: 'Reader · Tizard Centre, University of Kent', bio: 'Magali-Fleur is a Reader at the Tizard Centre, University of Kent, specialising in forensic psychology and intellectual and developmental disabilities. Her work includes applied research in forensic settings, consultancy and collaborations with government agencies to inform policy and practice.', photo: 'assets/people/magali.webp', orcid: 'https://orcid.org/0000-0001-7921-8819', email: 'm.barnoux@kent.ac.uk' },
+  { name: 'Natalie Leow-Dyke', role: 'ABA Consultant', bio: 'Natalie is an ABA Consultant with expertise in applied behaviour analysis and the CABAS® model. Her work focuses on the application of evidence-based approaches to teaching, learning and skill development.', photo: 'assets/people/natalie.webp', orcid: 'https://orcid.org/0000-0002-5383-0935', email: 'NatalieLeow-Dyke@jigsawschool.co.uk' },
+  { name: 'Dr Paul Thompson', role: 'Associate Professor in Applied Statistics · University of Birmingham', bio: 'Paul is an Associate Professor in Applied Statistics at the University of Birmingham and a Chartered Statistician. His research focuses on applied statistical methods and randomised controlled trials across social care, education and healthcare, with particular experience in intellectual and developmental disabilities and neurodevelopmental research.', photo: 'assets/people/paul.webp', orcid: 'https://orcid.org/0000-0001-9940-6913', email: 'p.a.thompson@bham.ac.uk' },
+];
+// Alumni: degree is 'PhD' or 'MSc'.
+const ALUMNI_LIST = [
+  { name: '[Alumnus 1]', degree: 'PhD', role: '[Year completed] · now [current role]' },
+  { name: 'Jenny Cannon', degree: 'MSc', role: '2026 · now Trainee Behaviour Analyst' },
+  { name: 'Anna Colgate', degree: 'MSc', role: '2026 · now Director of ABA Pathways' },
+  { name: '[Alumnus 4]', degree: 'MSc', role: '[Year completed] · now [current role]' },
+  { name: '[Alumnus 5]', degree: 'MSc', role: '[Year completed] · now [current role]' },
+  { name: '[Alumnus 6]', degree: 'MSc', role: '[Year completed] · now [current role]' },
+];
+// The lab lead's portrait: '' shows the empty placeholder, or give the image file, for example 'assets/people/thanos.webp'.
+const LEAD_PHOTO = 'assets/people/thanos.webp';
+// (The image placeholder for each person needs its own id; these are made automatically.)
+let nPhd = 0, nPro = 0;
+const DOCTORAL = DOCTORAL_LIST.filter(p => SHOW_PROSPECTIVE || !p.prospective).map(p => ({ photo: '', ...p, slot: p.prospective ? `team-prospective-${++nPro}` : `team-phd-${++nPhd}` }));
+const COLLAB = COLLAB_LIST.map((p, i) => ({ photo: '', ...p, slot: `team-collab-${i + 1}` }));
+
+// Image placeholders are created here, not written in the page template, so that the browser never tries to load an unfinished address.
+const slotEl = (id, src, placeholder) => React.createElement('image-slot', { id, src: src || undefined, shape: 'rect', placeholder, style: { position: 'absolute', inset: 0 } });
+
+// Builds a celeration fan: every line starts from a shared origin (bottom left) and ends level with its name.
+function fan(people, sel, hov, pick, enter, leave) {
+  const N = people.length;
+  if (!N) return { vb: '0 0 100 44', h: '0px', grid: '', lines: [], people: [], sel: {}, photoEl: null };   // an empty list: the section is not shown
+  // The chart is as tall as the list of names, with a minimum of three rows so that one or two names still look like a chart.
+  const H = Math.max(N, 3) * ROW, ox = 3, oy = H - 4, ex = 96;
+  sel = Math.min(sel, N - 1);
+  let grid = '';
+  for (let d = 0; d < 2; d++) for (let k = 1; k <= 9; k++) grid += `M0 ${(H - (d + Math.log10(k)) * H / 2).toFixed(1)}H100`;
+  for (let i = 1; i < 8; i++) grid += `M${i * 12.5} 0V${H}`;
+  const lines = people.map((p, i) => {
+    const ey = i * ROW + ROW / 2, on = i === sel, hot = i === hov;
+    let dots = '';
+    if (!p.prospective) for (let j = 0; j < 6; j++) {
+      const t = 0.2 + j * 0.13;
+      dots += `M${(ox + (ex - ox) * t).toFixed(2)} ${(oy + (ey - oy) * t + 7 * Math.sin(i * 3.1 + j * 2.3)).toFixed(1)}h0.01`;
+    }
+    return {
+      x1: ox, y1: oy, x2: ex, y2: ey,
+      c: on ? NAVY : hot ? INK : '#7F96B5', w: on ? 3 : 1.5,
+      dash: p.prospective ? '7 6' : 'none',
+      dots: dots || 'M0 0', end: `M${ex} ${ey}h0.01`, endW: on ? 14 : 9,
+      pick: () => pick(i), enter: () => enter(i), leave
+    };
+  });
+  return {
+    vb: `0 0 100 ${H}`, h: `${H}px`, grid, lines,
+    people: people.map((p, i) => {
+      const on = i === sel, hot = i === hov;
+      return {
+        name: p.name, tag: p.prospective ? 'Prospective' : '',
+        pressed: on ? 'true' : 'false',
+        bg: on ? NAVY : hot ? '#F3F6FA' : '#FFFFFF', fg: on ? '#FFFFFF' : INK, tagFg: on ? '#DCE4EE' : '#3F4A5A',
+        pick: () => pick(i), enter: () => enter(i), leave
+      };
+    }),
+    sel: people[sel],
+    photoEl: slotEl(people[sel].slot, people[sel].photo, 'Portrait (consent required)')
+  };
+}
+
+class Component extends DCLogic {
+  state = { doc: 0, col: 0, hovDoc: -1, hovCol: -1 };
+  docRef = React.createRef(); colRef = React.createRef();
+  // Choosing a name shows that person's profile. On a narrow screen the profile sits below the list,
+  // so if it is out of view the page moves down to it.
+  select(key, i, ref) {
+    this.setState({ [key]: i }, () => {
+      const el = ref.current; if (!el) return;
+      if (el.getBoundingClientRect().top > window.innerHeight - 120) el.scrollIntoView({ block: 'start', behavior: window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    });
+  }
+  renderVals() {
+    const { doc, col, hovDoc, hovCol } = this.state;
+    // Alumni come from ALUMNI_LIST at the top of this script. Each gets a row, a data path and an aim star.
+    const alumni = ALUMNI_LIST.map(m => ({ ...m }));
+    // Rows are a little shorter once there are more than ten alumni, so a long list stays manageable.
+    const RA = alumni.length > 10 ? 48 : 60, AH = Math.max(alumni.length, 2) * RA, aox = 3, aoy = AH - 5, aex = 98;
+    const af = { vb: `0 0 100 ${AH}`, h: `${AH}px`, rowH: `${RA}px`, grid: '', aimLine: `M${aex} 0V${AH}`, lines: '', dots: '' };
+    for (let d = 0; d < 2; d++) for (let k = 1; k <= 9; k++) af.grid += `M0 ${(AH - (d + Math.log10(k)) * AH / 2).toFixed(1)}H100`;
+    alumni.forEach((m, i) => {
+      const ey = i * RA + RA / 2;
+      af.lines += `M${aox} ${aoy}L${aex} ${ey}`;
+      for (let j = 0; j < 7; j++) {
+        const t = 0.16 + j * 0.14;
+        af.dots += `M${(aox + (aex - aox) * t).toFixed(2)} ${(aoy + (ey - aoy) * t + (j < 6 ? 6 * Math.sin(i * 2.7 + j * 2.1) : 0)).toFixed(1)}h0.01`;
+      }
+    });
+    return {
+      doc: fan(DOCTORAL, doc, hovDoc, i => this.select('doc', i, this.docRef), i => this.setState({ hovDoc: i }), () => this.setState({ hovDoc: -1 })),
+      col: fan(COLLAB, col, hovCol, i => this.select('col', i, this.colRef), i => this.setState({ hovCol: i }), () => this.setState({ hovCol: -1 })),
+      alumni, af,
+      hasDoc: DOCTORAL.length > 0, hasCol: COLLAB.length > 0, hasAlu: alumni.length > 0,
+      docRef: this.docRef, colRef: this.colRef,
+      docLegend: DOCTORAL.some(p => p.prospective) ? 'Solid lines with data are current doctoral researchers. Dashed lines are projections: prospective researchers who plan to join.' : 'Each line is a current doctoral researcher.',
+      leadPhotoEl: slotEl('team-lead', LEAD_PHOTO, 'Portrait: Dr Thanos Vostanis')
+    };
+  }
+}
+</script>
+</body>
+</html>
