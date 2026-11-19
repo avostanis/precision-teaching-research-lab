@@ -127,7 +127,12 @@ a:hover{color:#00264D}
         <button type="button" aria-expanded="{{ moreStr }}" aria-controls="disc-detail" onClick="{{ toggleMore }}" style="align-self:flex-start;display:inline-flex;align-items:center;gap:14px;min-height:56px;margin-top:8px;padding:8px 26px;border-radius:999px;border:2px solid #00376D;background:{{ moreBg }};color:{{ moreFg }};font-family:'Jost',sans-serif;font-size:19px;font-weight:500;line-height:1.2;text-align:left;cursor:pointer">{{ moreLabel }}<span aria-hidden="true" style="font-size:26px;font-weight:400;line-height:1">{{ moreIcon }}</span></button>
       </article>
     </div>
+    <sc-if value="{{ pairIsFlu }}" hint-placeholder-val="{{ true }}">
+    <p style="margin:20px 0 0;max-width:52em;font-size:15px;color:#3F4A5A;text-wrap:pretty">For the classic account of fluency, read Carl Binder’s seminal paper, <a href="https://doi.org/10.1007/BF03393163" target="_blank" rel="noopener noreferrer">Behavioral fluency: Evolution of a new paradigm</a> (Binder, 1996).</p>
+    </sc-if>
+    <sc-if value="{{ pairIsAg }}" hint-placeholder-val="{{ false }}">
     <p style="margin:20px 0 0;max-width:52em;font-size:15px;color:#3F4A5A;text-wrap:pretty">A short way to remember the difference: fluency is to frequency as agility is to celeration (Meyer et al., 2021).</p>
+    </sc-if>
     <div id="disc-detail">
       <sc-if value="{{ showFlu }}" hint-placeholder-val="{{ false }}">
       <section id="fluency" aria-labelledby="mastery-title" style="margin-top:clamp(28px,3vw,40px);padding-top:clamp(28px,3vw,40px);border-top:1.5px solid #00376D">
@@ -413,6 +418,7 @@ class Component extends DCLogic {
       toggleChart: () => this.setState(st => ({ chartOpen: !st.chartOpen })),
       pair: PAIR.map(c => ({ ...c, pressed: c.key === pair ? 'true' : 'false', border: c.key === pair ? '2.5px solid #00376D' : '1px solid #A9BBD2', bg: c.key === pair ? '#F3F6FA' : '#FFFFFF', pick: () => this.setState({ pair: c.key }) })),
       pairCur: PAIR.find(c => c.key === pair),
+      pairIsFlu: pair === 'fluency', pairIsAg: pair !== 'fluency',
       showFlu: more && pair === 'fluency', showAg: more && pair === 'agility',
       moreStr: more ? 'true' : 'false', moreLabel: more ? 'Hide the detail' : PAIR.find(c => c.key === pair).more, moreIcon: more ? '−' : '+',
       moreBg: more ? '#FFFFFF' : NAVY, moreFg: more ? NAVY : '#FFFFFF',
