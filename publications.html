@@ -101,7 +101,7 @@ a:hover{color:#00264D}
                 <p style="margin:0;font-family:'Jost',sans-serif;font-size:21px;line-height:1.3;max-width:40em">{{ p.title }}</p>
                 <p style="margin:0;font-size:16px;color:#3F4A5A">{{ p.authors }} ({{ p.year }}). <em>{{ p.venue }}</em>.</p>
                 <div style="display:flex;flex-wrap:wrap;gap:8px 22px;align-items:center;font-size:15px">
-                  <a href="{{ p.doiHref }}">https://doi.org/{{ p.doi }}</a>
+                  <a href="{{ p.doiHref }}">{{ p.doiLabel }}</a>
                   <sc-if value="{{ p.oa }}" hint-placeholder-val="{{ false }}"><a href="{{ p.oaHref }}" style="display:inline-flex;align-items:center;gap:6px">Open-access PDF</a></sc-if>
                   <sc-if value="{{ p.oa }}" hint-placeholder-val="{{ false }}"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:#00376D;border:1px solid #A9BBD2;border-radius:3px;padding:1px 7px">Open access</span></sc-if>
                 </div>
@@ -129,11 +129,12 @@ const TYPES = ['Journal article', 'Book chapter', 'Conference paper', 'Report', 
 //   type:  one of the TYPES above.   theme: one of the THEMES above (spelled exactly the same).
 //   doi:   just the DOI, for example '10.1002/jaba.1234' (the page turns it into a link).
 //   openAccess: true or false.   openAccessLink: the address of the free version, or '' if none.
+//   link, linkLabel: optional. Use when the DOI does not work: link is the address to show instead of the DOI, linkLabel is its wording.
 // The chart at the top of the page and the filters update themselves from this list.
 // ---------------------------------------------------------------------------------------------
 
 const PUB_LIST = [
-  { year: 2027, type: 'Book chapter', theme: 'Precision teaching', title: 'Precision Teaching', authors: 'Vostanis, A.', venue: 'Encyclopedia of Psychotherapy, 2nd ed., Vol. 2, pp. 217–239', doi: '10.1016/B978-0-443-29009-1.00013-5', openAccess: false, openAccessLink: '' },
+  { year: 2027, type: 'Book chapter', theme: 'Precision teaching', title: 'Precision Teaching', authors: 'Vostanis, A.', venue: 'Encyclopedia of Psychotherapy, 2nd ed., Vol. 2, pp. 217–239', doi: '10.1016/B978-0-443-29009-1.00013-5', link: 'https://www.sciencedirect.com/referencework/9780443290107/encyclopedia-of-psychotherapy', linkLabel: 'Encyclopedia of Psychotherapy on ScienceDirect', openAccess: false, openAccessLink: '' },
   { year: 2026, type: 'Journal article', theme: 'New applications', title: 'Teaching Mathematics to Autistic Students in Special Education by Integrating Learn Units Within Precision Teaching', authors: 'Leow-Dyke, N., Jones, R., Rossi, M., & Vostanis, A.', venue: 'Behavioral Interventions', doi: '10.1002/bin.70118', openAccess: true, openAccessLink: 'https://doi.org/10.1002/bin.70118' },
   { year: 2026, type: 'Journal article', theme: 'New applications', title: 'Precision Teaching to Develop Key Word Sign Skills in Practitioners in Intellectual Disability Services: A Proof-of-Concept Study', authors: 'Vostanis, A., Payne, O. D., Cox, A., & Bradshaw, J.', venue: 'Journal of Applied Research in Intellectual Disabilities', doi: '10.1111/jar.70188', openAccess: true, openAccessLink: 'https://doi.org/10.1111/jar.70188' },
   { year: 2026, type: 'Journal article', theme: 'Evidence-based practice', title: 'Evaluating the Effects of Skill-Based Treatment: A Systematic Review and Meta-Analysis of Single-Case Studies', authors: 'Bunyan, N., Feuerer, C., & Vostanis, A.', venue: 'Journal of Autism and Developmental Disorders', doi: '10.1007/s10803-026-07547-2', openAccess: true, openAccessLink: 'https://doi.org/10.1007/s10803-026-07547-2' },
@@ -149,7 +150,8 @@ const PUB_LIST = [
 ];
 const PUBS = PUB_LIST.map((p, i) => ({
   ...p, id: i, oa: !!p.openAccess,
-  doiHref: /x{4}/.test(p.doi) ? '#' : `https://doi.org/${p.doi}`,   // placeholder DOIs are not turned into links
+  doiHref: p.link || (/x{4}/.test(p.doi) ? '#' : `https://doi.org/${p.doi}`),
+  doiLabel: p.link ? (p.linkLabel || p.link) : `https://doi.org/${p.doi}`,   // placeholder DOIs are not turned into links
   oaHref: p.openAccessLink || '#'
 }));
 const YEARS = [...new Set(PUBS.map(p => p.year))];
